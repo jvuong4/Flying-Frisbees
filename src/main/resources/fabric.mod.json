@@ -29,7 +29,7 @@
 	},
 	"entrypoints": {
 		"main": [
-			"io.github.username.modid.ModId"
+			"io.github.jvuong4.flyingfrisbees.FlyingFrisbees"
 		],
 		"client": [
 		]
