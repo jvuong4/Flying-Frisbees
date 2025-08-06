@@ -33,7 +33,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		if (this.getStackInHand(hand) != ItemStack.EMPTY) return;
 
 		if (entity instanceof LivingEntity e
-			&& entity.isSneaking()
+			//&& entity.isSneaking()
 			&& e.getEquippedStack(EquipmentSlot.HEAD).isIn(FlyingFrisbees.Tags.FETCHABLE))
 		{
 			var s = e.getEquippedStack(EquipmentSlot.HEAD);
