@@ -1,0 +1,50 @@
+package io.github.jvuong4.flyingfrisbees.Registry;
+
+import com.google.common.collect.ImmutableList;
+import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
+import io.github.jvuong4.flyingfrisbees.Item.Frisbee;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.component.type.FoodComponents;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+
+import static net.minecraft.item.Items.register;
+
+public class FFItems {
+	private static final List<Item> allItems = new ArrayList<>();
+
+	public static final Item FRISBEE = registerFrisbee("frisbee", Item::new);
+
+	private static Item registerFrisbee(String name, Function<Item.Settings, Item> function)
+	{
+		Item item = Registry.register(Registries.ITEM, FlyingFrisbees.id(name),
+			function.apply(new Item.Settings()
+				.equippable(EquipmentSlot.HEAD)
+				.registryKey(RegistryKey.of(RegistryKeys.ITEM, FlyingFrisbees.id(name)))));
+		allItems.add(item);
+		return item;
+	}
+
+	//ItemGroup Stuff :o
+
+	public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), FlyingFrisbees.id("item_group"));
+	public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder()
+		.icon(FRISBEE::getDefaultStack)
+		.displayName(Text.translatable("itemGroup." + FlyingFrisbees.MOD_ID))
+		.build();
+
+	public static List<Item> getAllItems() { return ImmutableList.copyOf(allItems); }
+
+	public static void init() {}
+}
