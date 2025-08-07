@@ -7,8 +7,8 @@ import net.minecraft.client.render.entity.state.EntityRenderState;
 
 @Environment(EnvType.CLIENT)
 public class FrisbeeEntityRenderState extends EntityRenderState {
-	//public float pitch;
-	//public float yaw;
+	public float pitch;
+	public float yaw;
 	//public boolean enchanted;
 	public boolean onGround;
 }

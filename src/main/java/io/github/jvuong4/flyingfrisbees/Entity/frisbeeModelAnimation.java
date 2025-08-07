@@ -1,4 +1,5 @@
 // Save this class in your mod and generate all required imports
+package io.github.jvuong4.flyingfrisbees.Entity;
 
 import io.github.jvuong4.flyingfrisbees.Entity.FrisbeeEntity;
 import net.minecraft.client.render.entity.animation.Animation;

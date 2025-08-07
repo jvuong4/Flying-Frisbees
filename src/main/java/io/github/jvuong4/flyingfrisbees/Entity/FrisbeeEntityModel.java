@@ -1,3 +1,5 @@
+package io.github.jvuong4.flyingfrisbees.Entity;
+
 import com.google.common.collect.ImmutableList;
 import io.github.jvuong4.flyingfrisbees.Entity.FrisbeeEntity;
 import io.github.jvuong4.flyingfrisbees.Entity.FrisbeeEntityRenderState;
