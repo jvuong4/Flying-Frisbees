@@ -1,5 +1,21 @@
 {
 	"item.flying_frisbees.frisbee": "Frisbee",
+	"item.flying_frisbees.white_frisbee": "White Frisbee",
+	"item.flying_frisbees.light_gray_frisbee": "Light Gray Frisbee",
+	"item.flying_frisbees.gray_frisbee": "Gray Frisbee",
+	"item.flying_frisbees.black_frisbee": "Black Frisbee",
+	"item.flying_frisbees.brown_frisbee": "Brown Frisbee",
+	"item.flying_frisbees.red_frisbee": "Red Frisbee",
+	"item.flying_frisbees.orange_frisbee": "Orange Frisbee",
+	"item.flying_frisbees.yellow_frisbee": "Yellow Frisbee",
+	"item.flying_frisbees.lime_frisbee": "Lime Frisbee",
+	"item.flying_frisbees.green_frisbee": "Green Frisbee",
+	"item.flying_frisbees.cyan_frisbee": "Cyan Frisbee",
+	"item.flying_frisbees.light_blue_frisbee": "Light Blue Frisbee",
+	"item.flying_frisbees.blue_frisbee": "Blue Frisbee",
+	"item.flying_frisbees.purple_frisbee": "Purple Frisbee",
+	"item.flying_frisbees.magenta_frisbee": "Magenta Frisbee",
+	"item.flying_frisbees.pink_frisbee": "Pink Frisbee",
 
 	"itemGroup.flying_frisbees": "Flying Frisbees"
 }

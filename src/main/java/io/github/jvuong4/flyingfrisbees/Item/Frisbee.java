@@ -1,13 +1,16 @@
 package io.github.jvuong4.flyingfrisbees.Item;
 
 import io.github.jvuong4.flyingfrisbees.Entity.FrisbeeEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ProjectileItem;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -52,24 +55,22 @@ public class Frisbee extends Item implements ProjectileItem {
 			0.5F,
 			0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F)
 		);
-		if (!world.isClient) {
+		if (true){//(!world.isClient) {
 			FrisbeeEntity frisbee = new FrisbeeEntity(world, user, itemStack);
 			frisbee.setItem(itemStack);
 			frisbee.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.5F, 1.0F);
 			world.spawnEntity(frisbee);
 		}
 
-		user.incrementStat(Stats.USED.getOrCreateStat(this));
+		//user.incrementStat(Stats.USED.getOrCreateStat(this));
 		itemStack.decrementUnlessCreative(1, user);
 		return ActionResult.SUCCESS;
 	}
 
-
 	@Override
 	public ProjectileEntity createEntity(World world, Position pos, ItemStack stack, Direction direction) {
-		//FrisbeeEntity h = new FrisbeeEntity(world, pos.getX(), pos.getY(), pos.getZ());
+		FrisbeeEntity h = new FrisbeeEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack);
 		//h.setItem(stack);
-		ProjectileEntity h = null;
 		return h;
 	}
 }

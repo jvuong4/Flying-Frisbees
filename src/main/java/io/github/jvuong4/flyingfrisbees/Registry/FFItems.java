@@ -47,7 +47,8 @@ public class FFItems {
 	{
 		Item item = Registry.register(Registries.ITEM, FlyingFrisbees.id(name),
 			function.apply(new Item.Settings()
-				.equippable(EquipmentSlot.HEAD)
+				.maxCount(1)
+				.equippableUnswappable(EquipmentSlot.HEAD)
 				.registryKey(RegistryKey.of(RegistryKeys.ITEM, FlyingFrisbees.id(name)))));
 		allItems.add(item);
 		return item;

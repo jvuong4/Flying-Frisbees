@@ -1,5 +1,6 @@
 package io.github.jvuong4.flyingfrisbees.Entity;
 
+import io.github.jvuong4.flyingfrisbees.Registry.FFEntities;
 import io.github.jvuong4.flyingfrisbees.Registry.FFItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -26,12 +27,17 @@ public class FrisbeeEntity extends PersistentProjectileEntity {
 	}
 
 	public FrisbeeEntity(World world, LivingEntity owner, ItemStack stack) {
-		super(null, owner, world, stack, (ItemStack)null);
+		super(FFEntities.FRISBEE, owner, world, stack, (ItemStack)null);
 	}
 
 	public FrisbeeEntity(World world, double x, double y, double z, ItemStack stack) {
-		super(null, x, y, z, world, stack, stack);
+		super(FFEntities.FRISBEE, x, y, z, world, stack, stack);
 	}
+
+	/*
+	public FrisbeeEntity(EntityType<Entity> entityEntityType, World world) {
+	}
+	 */
 
 	@Override
 	protected ItemStack getDefaultItemStack()
