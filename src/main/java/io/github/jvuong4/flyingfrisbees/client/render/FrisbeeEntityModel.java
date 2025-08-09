@@ -1,12 +1,12 @@
-package io.github.jvuong4.flyingfrisbees.Entity;
+package io.github.jvuong4.flyingfrisbees.client.render;
 
-import com.google.common.collect.ImmutableList;
-import io.github.jvuong4.flyingfrisbees.Entity.FrisbeeEntity;
-import io.github.jvuong4.flyingfrisbees.Entity.FrisbeeEntityRenderState;
+import io.github.jvuong4.flyingfrisbees.entity.FrisbeeEntity;
 import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
@@ -23,10 +23,11 @@ public class FrisbeeEntityModel extends EntityModel<FrisbeeEntityRenderState> {
 	private final Animation stoppedAnimation;
 
 	public FrisbeeEntityModel(ModelPart root) {
+		super(root);
 
 		this.body = root.getChild("body");
-		this.spinningAnimation = frisbeeModelAnimation.spinning.createAnimation("body");
-		this.stoppedAnimation = frisbeeModelAnimation.stopped.createAnimation("body");
+		this.spinningAnimation = FrisbeeModelAnimation.spinning.createAnimation(body);
+		this.stoppedAnimation = FrisbeeModelAnimation.stopped.createAnimation(body);
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -42,9 +43,7 @@ public class FrisbeeEntityModel extends EntityModel<FrisbeeEntityRenderState> {
 		ModelPartData side_r3 = body.addChild("side_r3", ModelPartBuilder.create().uv(0, 8).cuboid(-4.0F, -1.0F, -4.0F, 8.0F, 1.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, -1.5708F, 0.0F));
 		return TexturedModelData.of(modelData, 16, 9);
 	}
-	@Override
-	public void setAngles(FrisbeeEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-	}
+
 	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
 		body.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
@@ -53,6 +52,11 @@ public class FrisbeeEntityModel extends EntityModel<FrisbeeEntityRenderState> {
 			modelRenderer.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha)
 		});
 		 */
+	}
+
+	@Override
+	public void setAngles(FrisbeeEntityRenderState state) {
+
 	}
 
 	@Override

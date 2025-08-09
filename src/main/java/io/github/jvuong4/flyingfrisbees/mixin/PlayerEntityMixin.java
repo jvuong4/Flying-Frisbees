@@ -1,8 +1,8 @@
-package io.github.jvuong4.flyingfrisbees.Mixin;
+package io.github.jvuong4.flyingfrisbees.mixin;
 
 import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
-import io.github.jvuong4.flyingfrisbees.Item.Frisbee;
-import io.github.jvuong4.flyingfrisbees.Registry.FFItems;
+import io.github.jvuong4.flyingfrisbees.item.Frisbee;
+import io.github.jvuong4.flyingfrisbees.registry.FFItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;

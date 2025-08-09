@@ -1,8 +1,9 @@
-package io.github.jvuong4.flyingfrisbees.Entity;
+package io.github.jvuong4.flyingfrisbees.client.render;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.state.EntityRenderState;
+import net.minecraft.entity.AnimationState;
 
 
 @Environment(EnvType.CLIENT)
