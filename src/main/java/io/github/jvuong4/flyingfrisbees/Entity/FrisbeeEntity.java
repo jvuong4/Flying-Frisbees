@@ -63,14 +63,15 @@ public class FrisbeeEntity extends PersistentProjectileEntity {
 		}
 
 		this.dealtDamage = true;
-		if (entity.sidedDamage(damageSource, f)) {
+		ServerWorld serverWorld = (ServerWorld)var7;
+		if (entity.damage(serverWorld, damageSource, f)) {
 			if (entity.getType() == EntityType.ENDERMAN) {
 				return;
 			}
 
 			var7 = this.getWorld();
 			if (var7 instanceof ServerWorld) {
-				ServerWorld serverWorld = (ServerWorld)var7;
+
 				EnchantmentHelper.onTargetDamaged(serverWorld, entity, damageSource, this.getWeaponStack(), (item) -> this.kill(serverWorld));
 			}
 

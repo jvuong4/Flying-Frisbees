@@ -14,10 +14,19 @@ import net.minecraft.util.Identifier;
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
 public class FrisbeeEntityModel extends EntityModel<FrisbeeEntityRenderState> {
+
+	public static final EntityModelLayer FRISBEE = new EntityModelLayer(Identifier.of(FlyingFrisbees.MOD_ID, "frisbee"),"main")
+
 	private final ModelPart body;
 
+	private final Animation spinningAnimation;
+	private final Animation stoppedAnimation;
+
 	public FrisbeeEntityModel(ModelPart root) {
+
 		this.body = root.getChild("body");
+		this.spinningAnimation = frisbeeModelAnimation.spinning.createAnimation("body");
+		this.stoppedAnimation = frisbeeModelAnimation.stopped.createAnimation("body");
 	}
 
 	public static TexturedModelData getTexturedModelData() {

@@ -22,10 +22,17 @@ public class FFEntities {
 		Registries.ENTITY_TYPE,
 		FRISBEE_KEY.getValue(),
 		EntityType.Builder.<FrisbeeEntity>create(FrisbeeEntity::new, SpawnGroup.MISC)
+			.dropsNothing()
 			.dimensions(0.5F, 0.0625F)
-			//.trackRangeBlocks(4).trackedUpdateRate(10)
+			.maxTrackingRange(4).trackingTickInterval(20)
 			.build(FRISBEE_KEY)
 	);
 
+
+
 	public static void init() {}
 }
+
+//we can ignore this teehee :3
+//TRIDENT = register("trident", EntityType.Builder.create(TridentEntity::new, SpawnGroup.MISC).dropsNothing().dimensions(0.5F, 0.5F).eyeHeight(0.13F).maxTrackingRange(4).trackingTickInterval(20));
+//

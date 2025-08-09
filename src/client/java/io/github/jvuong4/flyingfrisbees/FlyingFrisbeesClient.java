@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class FlyingFrisbeesClient implements ClientModInitializer {
-	public static final EntityModelLayer MODEL_FRISBEE_LAYER = new EntityModelLayer(Identifier.of(FlyingFrisbees.MOD_ID, "frisbee"), "main");
+	//public static final EntityModelLayer MODEL_FRISBEE_LAYER = new EntityModelLayer(Identifier.of(FlyingFrisbees.MOD_ID, "frisbee"), "main");
 	@Override
 	public void onInitializeClient() {
 		EntityRendererRegistry.register(FFEntities.FRISBEE, (context) -> {
@@ -21,5 +21,6 @@ public class FlyingFrisbeesClient implements ClientModInitializer {
 		});
 
 		EntityModelLayerRegistry.registerModelLayer(MODEL_FRISBEE_LAYER, FrisbeeEntityModel::getTexturedModelData);
+		EntityRendererRegistry.register(FFEntities.FRISBEE, FrisbeeEntityRenderer::new);
 	}
 }

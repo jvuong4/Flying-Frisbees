@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 public class FrisbeeEntityRenderer extends EntityRenderer<FrisbeeEntity, FrisbeeEntityModel> {
 
 	public FrisbeeEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new FrisbeeEntityModel(context.getPart(FlyingFrisbeesClient.MODEL_FRISBEE_LAYER)), 0.5f);
+		super(context, new FrisbeeEntityModel(context.getPart(FrisbeeEntityModel.)), 0.5f);
 	}
 
 	@Override
