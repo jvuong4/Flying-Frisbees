@@ -1,10 +1,8 @@
-package io.github.jvuong4.flyingfrisbees.Registry;
+package io.github.jvuong4.flyingfrisbees.registry;
 
 import com.google.common.collect.ImmutableList;
 import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
-import io.github.jvuong4.flyingfrisbees.Item.Frisbee;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.minecraft.component.type.FoodComponents;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -13,7 +11,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;

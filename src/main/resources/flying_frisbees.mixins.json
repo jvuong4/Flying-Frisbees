@@ -1,7 +1,7 @@
 {
 	"required": true,
 	"minVersion": "0.8",
-	"package": "io.github.jvuong4.flyingfrisbees.Mixin",
+	"package": "io.github.jvuong4.flyingfrisbees.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"PlayerEntityMixin"

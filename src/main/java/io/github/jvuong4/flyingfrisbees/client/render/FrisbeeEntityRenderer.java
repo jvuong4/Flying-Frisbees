@@ -1,7 +1,7 @@
-package io.github.jvuong4.flyingfrisbees.Entity;
+package io.github.jvuong4.flyingfrisbees.client.render;
 
+import io.github.jvuong4.flyingfrisbees.entity.FrisbeeEntity;
 import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
-import io.github.jvuong4.flyingfrisbees.FlyingFrisbeesClient;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;

@@ -1,11 +1,12 @@
 [versions]
-loom = "1.10.+"
+loom = "1.11.+"
 minotaur = "2.+"
 
 mc = "1.21.8"
-fl = "0.16.14"
+fl = "0.17.1"
 yarn = "1.21.8+build.1"
-fapi = "0.130.0+1.21.8"
+fapi = "0.131.0+1.21.8"
+geckolib = "5.2.2"
 
 [plugins]
 loom = { id = "fabric-loom", version.ref = "loom" }
@@ -16,3 +17,4 @@ mc = { group = "mojang", name = "minecraft", version.ref = "mc" }
 fl = { group = "net.fabricmc", name = "fabric-loader", version.ref = "fl" }
 yarn = { group = "net.fabricmc", name = "yarn", version.ref = "yarn" }
 fapi = { group = "net.fabricmc.fabric-api", name = "fabric-api", version.ref = "fapi" }
+geckolib = { group = "software.bernie.geckolib", name = "geckolib-fabric-1.21.8", version.ref = "geckolib" }

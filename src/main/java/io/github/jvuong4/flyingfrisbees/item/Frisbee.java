@@ -1,19 +1,15 @@
-package io.github.jvuong4.flyingfrisbees.Item;
+package io.github.jvuong4.flyingfrisbees.item;
 
-import io.github.jvuong4.flyingfrisbees.Entity.FrisbeeEntity;
-import net.minecraft.entity.Entity;
+import io.github.jvuong4.flyingfrisbees.entity.FrisbeeEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ProjectileItem;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Direction;
