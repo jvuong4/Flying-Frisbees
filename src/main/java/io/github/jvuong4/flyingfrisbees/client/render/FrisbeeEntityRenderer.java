@@ -7,13 +7,13 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;
 
 
-public class FrisbeeEntityRenderer extends EntityRenderer<FrisbeeEntity, FrisbeeEntityModel> {
+public class FrisbeeEntityRenderer extends EntityRenderer<FrisbeeEntity, FrisbeeEntityRenderState> {
 
 	public FrisbeeEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new FrisbeeEntityModel(context.getPart(FrisbeeEntityModel.)), 0.5f);
+		super(context); //, new FrisbeeEntityModel(context.getPart(FrisbeeEntityModel.FRISBEE)), 0.5f);
 	}
 
-	@Override
+	//@Override
 	public Identifier getTexture(FrisbeeEntity entity) {
 		return Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/frisbee.png");
 	};

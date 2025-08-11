@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 // Paste this class into your mod and generate all required imports
 public class FrisbeeEntityModel extends EntityModel<FrisbeeEntityRenderState> {
 
-	public static final EntityModelLayer FRISBEE = new EntityModelLayer(Identifier.of(FlyingFrisbees.MOD_ID, "frisbee"),"main")
+	public static final EntityModelLayer FRISBEE = new EntityModelLayer(Identifier.of(FlyingFrisbees.MOD_ID, "frisbee"),"main");
 
 	private final ModelPart body;
 
@@ -34,7 +34,8 @@ public class FrisbeeEntityModel extends EntityModel<FrisbeeEntityRenderState> {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
 		ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create().uv(-8, 0).cuboid(-4.0F, -1.0F, -4.0F, 8.0F, 0.0F, 8.0F, new Dilation(0.0F))
-		.uv(0, 8).cuboid(-4.0F, -1.0F, -4.0F, 8.0F, 1.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		.uv(0, 8).cuboid(-4.0F, -1.0F, -4.0F, 8.0F, 1.0F, 0.0F, new Dilation(0.0F)),
+				ModelTransform.origin(0.0F, 24.0F, 0.0F)); //ModelTransform.pivot(0.0F, 24.0F, 0.0F));
 
 		ModelPartData side_r1 = body.addChild("side_r1", ModelPartBuilder.create().uv(0, 8).cuboid(-4.0F, -1.0F, -4.0F, 8.0F, 1.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 1.5708F, 0.0F));
 
@@ -44,23 +45,33 @@ public class FrisbeeEntityModel extends EntityModel<FrisbeeEntityRenderState> {
 		return TexturedModelData.of(modelData, 16, 9);
 	}
 
-	@Override
+	//@Override
+	/*
 	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
 		body.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		/*
-		ImmutableList.of(this.body).forEach((modelRenderer) -> {
-			modelRenderer.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha)
-		});
-		 */
+
+		///ImmutableList.of(this.body).forEach((modelRenderer) -> {
+		///	modelRenderer.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha)
+		///});
+
 	}
+	*/
 
 	@Override
 	public void setAngles(FrisbeeEntityRenderState state) {
 
 	}
 
-	@Override
+	//@Override
 	public Identifier getTexture(FrisbeeEntity entity) {
 		return Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/frisbee.png");
 	};
 }
+
+///public final void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+///         this.getRootPart().render(matrices, vertices, light, overlay, color);
+///     }
+///
+///     public final void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
+///         this.render(matrices, vertices, light, overlay, -1);
+///     }
