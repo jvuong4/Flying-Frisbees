@@ -15,8 +15,12 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
 
-public class FrisbeeEntity extends PersistentProjectileEntity {
+public class FrisbeeEntity extends PersistentProjectileEntity implements GeoAnimatable {
 	public static final ItemStack defaultItemStack = new ItemStack(FFItems.FRISBEE);
 	private static final boolean DEFAULT_DEALT_DAMAGE = false;
 	private boolean dealtDamage = false;
@@ -84,5 +88,20 @@ public class FrisbeeEntity extends PersistentProjectileEntity {
 		this.deflect(ProjectileDeflection.SIMPLE, entity, this.getOwner(), false);
 		this.setVelocity(this.getVelocity().multiply(0.02, 0.2, 0.02));
 		this.playSound(SoundEvents.ITEM_TRIDENT_HIT, 1.0F, 1.0F);
+	}
+
+	@Override
+	public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+
+	}
+
+	@Override
+	public AnimatableInstanceCache getAnimatableInstanceCache() {
+		return null;
+	}
+
+	@Override
+	public double getTick(@Nullable Object object) {
+		return 0;
 	}
 }
