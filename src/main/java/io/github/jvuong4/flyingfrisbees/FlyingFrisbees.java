@@ -2,16 +2,12 @@ package io.github.jvuong4.flyingfrisbees;
 
 import io.github.jvuong4.flyingfrisbees.registry.FFRegistry;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.function.Supplier;
 
 public class FlyingFrisbees implements ModInitializer {
 	public static final String MOD_ID = "flying_frisbees";

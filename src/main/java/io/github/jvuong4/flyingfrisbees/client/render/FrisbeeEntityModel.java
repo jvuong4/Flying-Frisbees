@@ -1,15 +1,8 @@
 package io.github.jvuong4.flyingfrisbees.client.render;
 
-import io.github.jvuong4.flyingfrisbees.entity.FrisbeeEntity;
 import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
-import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.util.math.MatrixStack;
+import io.github.jvuong4.flyingfrisbees.entity.FrisbeeEntity;
 import net.minecraft.util.Identifier;
-import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
 

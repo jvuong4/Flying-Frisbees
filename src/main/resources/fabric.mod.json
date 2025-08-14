@@ -16,9 +16,9 @@
 		"sources": "${sources}"
 	},
 	"license": "${license}",
-	"icon": "assets/${modId}/icon.png",
+	"icon": "assets/flying_frisbees/icon.png",
 	"mixins": [
-		"${modId}.mixins.json"
+		"flying_frisbees.mixins.json"
 	],
 	"depends": {
 		"minecraft": ">=${mc}",
@@ -32,6 +32,7 @@
 			"io.github.jvuong4.flyingfrisbees.FlyingFrisbees"
 		],
 		"client": [
+			"io.github.jvuong4.flyingfrisbees.client.FlyingFrisbeesClient"
 		]
 	}
 }
