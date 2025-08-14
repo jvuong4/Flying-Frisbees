@@ -16,14 +16,23 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animatable.processing.AnimationController;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class FrisbeeEntity extends PersistentProjectileEntity implements GeoAnimatable {
+public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEntity {
+	protected static final RawAnimation SPINNING_ANIM = RawAnimation.begin().thenLoop("frisbee.spinning");
+	protected static final RawAnimation STOPPED_ANIM = RawAnimation.begin().thenLoop("frisbee.stopped");
+
+	private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
 	public static final ItemStack defaultItemStack = new ItemStack(FFItems.FRISBEE);
 	private static final boolean DEFAULT_DEALT_DAMAGE = false;
 	private boolean dealtDamage = false;
+	private boolean isSpinning = true;
 
 	public FrisbeeEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
 		super(entityType, world);
@@ -92,12 +101,15 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoAnim
 
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-
+		controllers.add(
+			// Add our animation controller
+			new AnimationController<>(10, state -> state.setAndContinue(this.isSpinning ? SPINNING_ANIM : STOPPED_ANIM))
+		);
 	}
 
 	@Override
 	public AnimatableInstanceCache getAnimatableInstanceCache() {
-		return null;
+		return this.geoCache;
 	}
 
 	@Override

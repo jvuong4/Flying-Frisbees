@@ -4,29 +4,18 @@ import io.github.jvuong4.flyingfrisbees.entity.FrisbeeEntity;
 import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.state.EntityRenderState;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.util.Identifier;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 
 
-public class FrisbeeEntityRenderer extends EntityRenderer<FrisbeeEntity, FrisbeeEntityRenderState> {
+public class FrisbeeEntityRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<FrisbeeEntity, R> {
 
 	public FrisbeeEntityRenderer(EntityRendererFactory.Context context) {
-		super(context); //, new FrisbeeEntityModel(context.getPart(FrisbeeEntityModel.FRISBEE)), 0.5f);
-	}
+		super(context, new FrisbeeEntityModel());
 
-	//@Override
-	public Identifier getTexture(FrisbeeEntity entity) {
-		return Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/frisbee.png");
-	};
-
-	//@Override
-	public FrisbeeEntityRenderState createRenderState() {
-		return new FrisbeeEntityRenderState();
-	}
-
-	public void updateRenderState(FrisbeeEntity frisbeeEntity, FrisbeeEntityRenderState frisbeeEntityRenderState, float f) {
-		super.updateRenderState(frisbeeEntity, frisbeeEntityRenderState, f);
-		frisbeeEntityRenderState.yaw = frisbeeEntity.getLerpedYaw(f);
-		frisbeeEntityRenderState.pitch = frisbeeEntity.getLerpedPitch(f);
-		//tridentEntityRenderState.enchanted = tridentEntity.isEnchanted();
+		//, new FrisbeeEntityModel()); //, new FrisbeeEntityModel(context.getPart(FrisbeeEntityModel.FRISBEE)), 0.5f);
 	}
 }

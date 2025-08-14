@@ -13,9 +13,7 @@ import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
 
-// Made with Blockbench 4.12.5
-// Exported for Minecraft version 1.17+ for Yarn
-// Paste this class into your mod and generate all required imports
+
 public class FrisbeeEntityModel extends GeoModel<FrisbeeEntity> {
 
 	@Override
