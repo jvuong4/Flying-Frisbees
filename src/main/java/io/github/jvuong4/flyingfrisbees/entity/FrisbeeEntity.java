@@ -1,7 +1,7 @@
 package io.github.jvuong4.flyingfrisbees.entity;
 
-import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesEntities;
-import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesItems;
+import io.github.jvuong4.flyingfrisbees.registry.FFEntities;
+import io.github.jvuong4.flyingfrisbees.registry.FFItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -29,7 +29,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 	private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
-	public static final ItemStack defaultItemStack = new ItemStack(FlyingFrisbeesItems.FRISBEE);
+	public static final ItemStack defaultItemStack = new ItemStack(FFItems.FRISBEE);
 	private static final boolean DEFAULT_DEALT_DAMAGE = false;
 	private boolean dealtDamage = false;
 	private boolean isSpinning = true;
@@ -39,11 +39,11 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	}
 
 	public FrisbeeEntity(World world, LivingEntity owner, ItemStack stack) {
-		super(FlyingFrisbeesEntities.FRISBEE, owner, world, stack, (ItemStack)null);
+		super(FFEntities.FRISBEE, owner, world, stack, (ItemStack)null);
 	}
 
 	public FrisbeeEntity(World world, double x, double y, double z, ItemStack stack) {
-		super(FlyingFrisbeesEntities.FRISBEE, x, y, z, world, stack, stack);
+		super(FFEntities.FRISBEE, x, y, z, world, stack, stack);
 	}
 
 	/*

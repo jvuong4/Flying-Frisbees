@@ -1,6 +1,6 @@
 package io.github.jvuong4.flyingfrisbees;
 
-import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesRegistry;
+import io.github.jvuong4.flyingfrisbees.registry.FFRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -23,7 +23,7 @@ public class FlyingFrisbees implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		FlyingFrisbeesRegistry.init();
+		FFRegistry.init();
 		LOGGER.info("Flying Frisbees flying freely for fun. Fetch!");
 	}
 	public static Identifier id(String path) {
