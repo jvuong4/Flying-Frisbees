@@ -18,7 +18,7 @@ import java.util.function.Function;
 
 import static net.minecraft.item.Items.register;
 
-public class FFItems {
+public class FlyingFrisbeesItems {
 	private static final List<Item> allItems = new ArrayList<>();
 
 	public static final Item FRISBEE = registerFrisbee("frisbee", Item::new);

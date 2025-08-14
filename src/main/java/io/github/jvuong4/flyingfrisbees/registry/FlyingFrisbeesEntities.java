@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.function.Supplier;
 
-public class FFEntities {
+public class FlyingFrisbeesEntities {
 
 	public static final RegistryKey<EntityType<?>> FRISBEE_KEY = RegistryKey.of(
 		Registries.ENTITY_TYPE.getKey(),

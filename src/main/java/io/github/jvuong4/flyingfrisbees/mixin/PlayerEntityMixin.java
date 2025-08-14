@@ -2,7 +2,7 @@ package io.github.jvuong4.flyingfrisbees.mixin;
 
 import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
 import io.github.jvuong4.flyingfrisbees.item.Frisbee;
-import io.github.jvuong4.flyingfrisbees.registry.FFItems;
+import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -36,7 +36,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		if (entity instanceof LivingEntity e
 			//&& entity.isSneaking()
 			&& (e.getEquippedStack(EquipmentSlot.HEAD).isIn(FlyingFrisbees.Tags.FETCHABLE)
-			|| e.getEquippedStack(EquipmentSlot.HEAD).getRegistryEntry() == FFItems.FRISBEE)
+			|| e.getEquippedStack(EquipmentSlot.HEAD).getRegistryEntry() == FlyingFrisbeesItems.FRISBEE)
 		)
 		{
 			var s = e.getEquippedStack(EquipmentSlot.HEAD);
