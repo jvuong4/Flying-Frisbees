@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static net.minecraft.item.Items.register;
-
 public class FFItems {
 	private static final List<Item> allItems = new ArrayList<>();
 

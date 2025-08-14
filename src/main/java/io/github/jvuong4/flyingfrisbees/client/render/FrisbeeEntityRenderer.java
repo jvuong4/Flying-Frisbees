@@ -1,12 +1,8 @@
 package io.github.jvuong4.flyingfrisbees.client.render;
 
 import io.github.jvuong4.flyingfrisbees.entity.FrisbeeEntity;
-import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
-import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.state.EntityRenderState;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.minecraft.util.Identifier;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
 
