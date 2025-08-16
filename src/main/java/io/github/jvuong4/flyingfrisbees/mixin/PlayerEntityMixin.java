@@ -31,20 +31,20 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	@Inject(method = "interact", at = @At("TAIL"), cancellable = true)
 	public void interact(Entity entity, Hand hand, CallbackInfoReturnable<ActionResult> ci)
 	{
+		if (getWorld().isClient) return;
 		if (this.getStackInHand(hand) != ItemStack.EMPTY) return;
 
-		if (entity instanceof LivingEntity e
-			//&& entity.isSneaking()
-			&& (e.getEquippedStack(EquipmentSlot.HEAD).isIn(FlyingFrisbees.Tags.FETCHABLE)
-			|| e.getEquippedStack(EquipmentSlot.HEAD).getRegistryEntry() == FlyingFrisbeesItems.FRISBEE)
-		)
-		{
-			var s = e.getEquippedStack(EquipmentSlot.HEAD);
-			var result = ((Frisbee)s.getRegistryEntry().value()).retrieve((PlayerEntity) (Entity) this, e, e.getEquippedStack(EquipmentSlot.HEAD),this.getActiveHand());
-			if (result != null)
-			{
-				ci.setReturnValue(result);
-				ci.cancel();
+
+		if (entity instanceof LivingEntity e) {
+			ItemStack stack = e.getEquippedStack(EquipmentSlot.HEAD);
+			boolean frisbee = stack.isIn(FlyingFrisbees.Tags.FETCHABLE )|| stack.isOf(FlyingFrisbeesItems.FRISBEE);
+			if (frisbee && e.isSneaking()) {
+				var result = ((Frisbee)stack.getRegistryEntry().value()).retrieve((PlayerEntity) (Entity) this, e, e.getEquippedStack(EquipmentSlot.HEAD),this.getActiveHand());
+				if (result != null)
+				{
+					ci.setReturnValue(result);
+					ci.cancel();
+				}
 			}
 		}
 	}
