@@ -3,10 +3,7 @@ package io.github.jvuong4.flyingfrisbees.entity;
 import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesEntities;
 import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesItems;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ProjectileDeflection;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -72,6 +69,13 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	protected void onEntityHit(EntityHitResult entityHitResult) {
 		if (getWorld().isClient) return;
 		Entity entity = entityHitResult.getEntity();
+
+		// catch in mouth
+		if (entityHitResult.getPos().distanceTo(entity.getEyePos()) < 0.5 && entity instanceof LivingEntity living && living.getEquippedStack(EquipmentSlot.HEAD).isEmpty()) {
+			living.equipStack(EquipmentSlot.HEAD, this.getItemStack());
+			return;
+		}
+
 		//this thang weak as hell lmao
 		float f = 1.0F;
 		Entity entity2 = this.getOwner();
@@ -79,7 +83,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		DamageSource damageSource = this.getDamageSources().trident(this, (Entity)(entity2 == null ? this : entity2));
 		World var7 = this.getWorld();
 		//kind of unnecessary lol
-		// h: crashes because getWeaponStack is null
+		// h: crashes because getWeaponStack is null; try getItemStack() since you aren't using a bow or other launcher
 //		if (var7 instanceof ServerWorld serverWorld) {
 //			f = EnchantmentHelper.getDamage(serverWorld, this.getWeaponStack(), entity, damageSource, f);
 //		}
