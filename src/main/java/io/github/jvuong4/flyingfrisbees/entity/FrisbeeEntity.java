@@ -70,6 +70,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	}
 
 	protected void onEntityHit(EntityHitResult entityHitResult) {
+		if (getWorld().isClient) return;
 		Entity entity = entityHitResult.getEntity();
 		//this thang weak as hell lmao
 		float f = 1.0F;
@@ -78,9 +79,10 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		DamageSource damageSource = this.getDamageSources().trident(this, (Entity)(entity2 == null ? this : entity2));
 		World var7 = this.getWorld();
 		//kind of unnecessary lol
-		if (var7 instanceof ServerWorld serverWorld) {
-			f = EnchantmentHelper.getDamage(serverWorld, this.getWeaponStack(), entity, damageSource, f);
-		}
+		// h: crashes because getWeaponStack is null
+//		if (var7 instanceof ServerWorld serverWorld) {
+//			f = EnchantmentHelper.getDamage(serverWorld, this.getWeaponStack(), entity, damageSource, f);
+//		}
 
 		this.dealtDamage = true;
 		ServerWorld serverWorld = (ServerWorld)var7;
