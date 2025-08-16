@@ -70,10 +70,20 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		if (getWorld().isClient) return;
 		Entity entity = entityHitResult.getEntity();
 
-		// catch in mouth
-		if (entityHitResult.getPos().distanceTo(entity.getEyePos()) < 0.5 && entity instanceof LivingEntity living && living.getEquippedStack(EquipmentSlot.HEAD).isEmpty()) {
-			living.equipStack(EquipmentSlot.HEAD, this.getItemStack());
-			return;
+		// facing = motion vector points opposite of entity look vector
+		boolean facing = this.getVelocity().dotProduct(entity.getRotationVector()) < 0;
+		if (facing && entity instanceof LivingEntity living) {
+			EquipmentSlot slot = entityHitResult.getPos().distanceTo(entity.getEyePos()) < 0.5 && living.getEquippedStack(EquipmentSlot.HEAD).isEmpty()
+				? EquipmentSlot.HEAD
+				: living.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty() ? EquipmentSlot.MAINHAND
+				: living.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty() ? EquipmentSlot.OFFHAND
+				: null;
+
+			if (slot != null) {
+				living.equipStack(slot, this.getItemStack());
+				this.setRemoved(RemovalReason.DISCARDED);
+				return;
+			}
 		}
 
 		//this thang weak as hell lmao
@@ -82,11 +92,6 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		//TODO: make a frisbee damage source
 		DamageSource damageSource = this.getDamageSources().trident(this, (Entity)(entity2 == null ? this : entity2));
 		World var7 = this.getWorld();
-		//kind of unnecessary lol
-		// h: crashes because getWeaponStack is null; try getItemStack() since you aren't using a bow or other launcher
-//		if (var7 instanceof ServerWorld serverWorld) {
-//			f = EnchantmentHelper.getDamage(serverWorld, this.getWeaponStack(), entity, damageSource, f);
-//		}
 
 		this.dealtDamage = true;
 		ServerWorld serverWorld = (ServerWorld)var7;
