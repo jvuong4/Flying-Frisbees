@@ -1,7 +1,7 @@
 package io.github.jvuong4.flyingfrisbees.entity;
 
-import io.github.jvuong4.flyingfrisbees.registry.FFEntities;
-import io.github.jvuong4.flyingfrisbees.registry.FFItems;
+import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesEntities;
+import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -23,26 +24,29 @@ import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEntity {
-	protected static final RawAnimation SPINNING_ANIM = RawAnimation.begin().thenLoop("frisbee.spinning");
-	protected static final RawAnimation STOPPED_ANIM = RawAnimation.begin().thenLoop("frisbee.stopped");
+	protected static final RawAnimation SPINNING_ANIM = RawAnimation.begin().thenLoop("animation.frisbee.spinning");
+	protected static final RawAnimation STOPPED_ANIM = RawAnimation.begin().thenLoop("animation.frisbee.stopped");
 
 	private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
-	public static final ItemStack defaultItemStack = new ItemStack(FFItems.FRISBEE);
+	public static final ItemStack defaultItemStack = new ItemStack(FlyingFrisbeesItems.FRISBEE);
 	private static final boolean DEFAULT_DEALT_DAMAGE = false;
 	private boolean dealtDamage = false;
 	private boolean isSpinning = true;
 
 	public FrisbeeEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
 		super(entityType, world);
+		isSpinning = true;
 	}
 
 	public FrisbeeEntity(World world, LivingEntity owner, ItemStack stack) {
-		super(FFEntities.FRISBEE, owner, world, stack, (ItemStack)null);
+		super(FlyingFrisbeesEntities.FRISBEE, owner, world, stack, (ItemStack)null);
+		isSpinning = true;
 	}
 
 	public FrisbeeEntity(World world, double x, double y, double z, ItemStack stack) {
-		super(FFEntities.FRISBEE, x, y, z, world, stack, stack);
+		super(FlyingFrisbeesEntities.FRISBEE, x, y, z, world, stack, stack);
+		isSpinning = true;
 	}
 
 	/*
@@ -58,6 +62,11 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	public void setItem(ItemStack itemStack)
 	{
 		setStack(itemStack);
+	}
+
+	@Nullable
+	protected EntityHitResult getEntityCollision(Vec3d currentPosition, Vec3d nextPosition) {
+		return this.dealtDamage ? null : super.getEntityCollision(currentPosition, nextPosition);
 	}
 
 	protected void onEntityHit(EntityHitResult entityHitResult) {
@@ -96,6 +105,13 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		this.deflect(ProjectileDeflection.SIMPLE, entity, this.getOwner(), false);
 		this.setVelocity(this.getVelocity().multiply(0.02, 0.2, 0.02));
 		this.playSound(SoundEvents.ITEM_TRIDENT_HIT, 1.0F, 1.0F);
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		if(this.isInGround())
+			isSpinning = false;
 	}
 
 	@Override

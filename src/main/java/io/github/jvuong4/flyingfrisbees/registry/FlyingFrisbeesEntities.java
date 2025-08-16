@@ -9,7 +9,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 
-public class FFEntities {
+public class FlyingFrisbeesEntities {
 
 	public static final RegistryKey<EntityType<?>> FRISBEE_KEY = RegistryKey.of(
 		Registries.ENTITY_TYPE.getKey(),

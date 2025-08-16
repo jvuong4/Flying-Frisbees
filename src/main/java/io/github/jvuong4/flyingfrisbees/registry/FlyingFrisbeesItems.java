@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class FFItems {
+public class FlyingFrisbeesItems {
 	private static final List<Item> allItems = new ArrayList<>();
 
 	public static final Item FRISBEE = registerFrisbee("frisbee", Item::new);
