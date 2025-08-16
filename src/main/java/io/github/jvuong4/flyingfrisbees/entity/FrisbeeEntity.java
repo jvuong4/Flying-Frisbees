@@ -73,6 +73,11 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		// facing = motion vector points opposite of entity look vector
 		boolean facing = this.getVelocity().dotProduct(entity.getRotationVector()) < 0;
 		if (facing && entity instanceof LivingEntity living) {
+			if (!entity.isOnGround() && this.getY() - entity.getY() < 1) {
+				entity.startRiding(this);
+				return;
+			}
+
 			EquipmentSlot slot = entityHitResult.getPos().distanceTo(entity.getEyePos()) < 0.5 && living.getEquippedStack(EquipmentSlot.HEAD).isEmpty()
 				? EquipmentSlot.HEAD
 				: living.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty() ? EquipmentSlot.MAINHAND
