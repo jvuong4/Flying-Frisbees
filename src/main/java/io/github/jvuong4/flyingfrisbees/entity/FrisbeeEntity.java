@@ -34,6 +34,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	private static final boolean DEFAULT_DEALT_DAMAGE = false;
 	private boolean dealtDamage = false;
 	private boolean isSpinning = true;
+	private int life;
 
 	public FrisbeeEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
 		super(entityType, world);
@@ -138,6 +139,20 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		super.tick();
 		if(this.isInGround())
 			isSpinning = false;
+	}
+
+	@Override
+	protected void age() {
+		++this.life;
+		if (this.life >= 1800) {
+			World var21 = this.getWorld();
+			if (var21 instanceof ServerWorld) {
+				ServerWorld serverWorld3 = (ServerWorld)var21;
+				this.dropStack(serverWorld3, this.asItemStack(), 0.1F);
+			}
+			this.discard();
+		}
+
 	}
 
 	@Override
