@@ -9,6 +9,10 @@ import software.bernie.geckolib.renderer.base.GeoRenderState;
 
 public class FrisbeeEntityModel extends GeoModel<FrisbeeEntity> {
 
+	public FrisbeeEntityModel() {
+
+	}
+
 	@Override
 	public Identifier getModelResource(GeoRenderState renderState) {
 		return Identifier.of(FlyingFrisbees.MOD_ID, "geckolib/models/frisbee.geo.json");
