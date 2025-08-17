@@ -4,6 +4,7 @@ import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesEntities;
 import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -18,9 +19,12 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.manager.AnimatableManager;
 import software.bernie.geckolib.animatable.processing.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.constant.dataticket.DataTicket;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEntity {
+	//public static final DataTicket<Integer> FRISBEE_TYPE = DataTicket.create("frisbee_type", Integer.class);
+
 	protected static final RawAnimation SPINNING_ANIM = RawAnimation.begin().thenLoop("animation.frisbee.spinning");
 	protected static final RawAnimation STOPPED_ANIM = RawAnimation.begin().thenLoop("animation.frisbee.stopped");
 
@@ -45,6 +49,12 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		super(FlyingFrisbeesEntities.FRISBEE, x, y, z, world, stack, stack);
 		isSpinning = true;
 	}
+
+	/*
+	public static DefaultAttributeContainer.Builder createAttributes() {
+		return
+	}
+	 */
 
 	/*
 	public FrisbeeEntity(EntityType<Entity> entityEntityType, World world) {
