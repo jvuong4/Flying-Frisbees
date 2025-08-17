@@ -88,10 +88,10 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 				return;
 			}
 
-			EquipmentSlot slot = entityHitResult.getPos().distanceTo(entity.getEyePos()) < 0.5 && living.getEquippedStack(EquipmentSlot.HEAD).isEmpty()
-				? EquipmentSlot.HEAD
-				: living.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty() ? EquipmentSlot.MAINHAND
+			EquipmentSlot slot = entityHitResult.getPos().distanceTo(entity.getEyePos()) < 0.5 &&
+				living.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty() ? EquipmentSlot.MAINHAND
 				: living.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty() ? EquipmentSlot.OFFHAND
+				: living.getEquippedStack(EquipmentSlot.HEAD).isEmpty() ? EquipmentSlot.HEAD
 				: null;
 
 			if (slot != null) {
@@ -101,7 +101,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 			}
 		}
 
-		//this thang weak as hell lmao
+		//this thing's weak as hell lmao
 		float f = 1.0F;
 		Entity entity2 = this.getOwner();
 		//TODO: make a frisbee damage source

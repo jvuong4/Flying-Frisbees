@@ -6,9 +6,11 @@ import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesItems;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.render.entity.state.FoxEntityRenderState;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
 
@@ -78,4 +80,18 @@ public class FrisbeeEntityRenderer<R extends EntityRenderState & GeoRenderState>
 
 	}
 	 */
+
+	@Override
+	public void addRenderData(
+		FrisbeeEntity frisbee,
+		Void ummm,
+		R renderState
+	) {
+		super.addRenderData(frisbee,ummm, renderState);
+		renderState.addGeckolibData(
+			DataTickets.ITEM,
+			frisbee.getItemStack().getItem()
+		);
+	}
+
 }
