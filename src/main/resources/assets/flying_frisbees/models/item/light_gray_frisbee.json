@@ -2,5 +2,12 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "flying_frisbees:item/light_gray_frisbee"
-  }
+  },
+	"display": {
+		"head": {
+			"rotation": [ 90, 0, 180 ],
+			"translation": [ 0, -4.5, -9.5],
+			"scale":[ 0.75, 0.75, 0.75 ]
+		}
+	}
 }

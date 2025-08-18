@@ -4,6 +4,7 @@
 	"package": "io.github.jvuong4.flyingfrisbees.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
+		"PlayerEntityMixin"
 	],
 	"client": [
 	],
