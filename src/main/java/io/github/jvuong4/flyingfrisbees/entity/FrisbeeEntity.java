@@ -2,9 +2,9 @@ package io.github.jvuong4.flyingfrisbees.entity;
 
 import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesEntities;
 import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesItems;
+import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesRegistry;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -19,7 +19,6 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.manager.AnimatableManager;
 import software.bernie.geckolib.animatable.processing.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.constant.dataticket.DataTicket;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEntity {
@@ -39,6 +38,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	public FrisbeeEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
 		super(entityType, world);
 		isSpinning = true;
+
 	}
 
 	public FrisbeeEntity(World world, LivingEntity owner, ItemStack stack) {
@@ -70,6 +70,8 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	public void setItem(ItemStack itemStack)
 	{
 		setStack(itemStack);
+		var path = itemStack.getRegistryEntry().getKey().get().getValue().getPath();
+		this.setAttached(FlyingFrisbeesRegistry.FRISBEE_TEXTURE_ATTACHMENT, path);
 	}
 
 	@Nullable
