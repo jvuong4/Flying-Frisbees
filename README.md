@@ -1,19 +1,23 @@
 <!--suppress HtmlDeprecatedTag, XmlDeprecatedElement -->
-<center><img alt="mod preview" src="https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png"/></center>
+<center><img alt="flying frisbees icon" src="https://github.com/jvuong4/Flying-Frisbees/blob/fabric-1.21.8/src/main/resources/assets/flying_frisbees/icon.png" width=200/></center>
 
 <center>
-A short quick summary of this mod
+Frisbees that you can throw!
 </center>
 
 ---
 
-A long description of your mod, including 
-- Dot point lists of all features
-
-`path/to/config/files` if you have them
+- You can catch frisbees that you're facing in your mainhand/offhand/helmetslot, and if you jump on one, you can hitch a ride on it, too! Otherwise, you get smacked.
+- Frisbees come in the 16 different dye colors, plus the default color.
+- Frisbees drop themselves as an item instead of despawning when thrown.
 
 Screenshots of features where possible
 
 ---
 
-A footnote for special thanks, credits, and other shoutouts - including "created at modfest" banners.
+Thank you to Asoji and Hama for advice and fixing my bad code :^)
+
+<a href="https://modfest.net/toybox">
+<img src="https://raw.githubusercontent.com/ModFest/art/aa6c3c7b64552dc8e6d37c0677bbe46edbe9a4c7/badge/svg/toybox/compact.svg" alt="ModFest: Toybox">
+</a>
+
