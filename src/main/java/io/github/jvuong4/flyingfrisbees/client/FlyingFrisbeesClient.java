@@ -44,37 +44,5 @@ public class FlyingFrisbeesClient implements ClientModInitializer {
 		FrisbeeEntityModel.frisbeeTextures.put(FlyingFrisbeesItems.WHITE_FRISBEE,Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/white_frisbee.png"));
 		FrisbeeEntityModel.frisbeeTextures.put(FlyingFrisbeesItems.YELLOW_FRISBEE,Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/yellow_frisbee.png"));
 
-		/*
-		FrisbeeEntityModel.frisbeeTextures.put("frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("black_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/black_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("blue_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/blue_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("brown_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/brown_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("cyan_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/cyan_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("gray_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/gray_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("green_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/green_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("light_blue_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/light_blue_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("light_gray_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/light_gray_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("lime_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/lime_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("magenta_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/magenta_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("orange_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/orange_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("pink_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/pink_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("purple_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/purple_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("red_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/red_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("white_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/white_frisbee.png"));
-		FrisbeeEntityModel.frisbeeTextures.put("yellow_frisbee",Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/yellow_frisbee.png"));
-		*/
-		/*
-		ClientPlayNetworking.registerGlobalReceiver(
-			S2CCaptureImagePayload.ID,  //what would i replace this with...?,
-			(payload,context) -> {
-				ClientWorld world = context.client().world;
-				FrisbeeEntity subject = (FrisbeeEntity)world.getEntity(payload.subject());
-				if (subject != null)
-				{
-					subject.setAttached(FlyingFrisbeesEntities.FRISBEE_COLOR = FrisbeeEntityRenderer.frisbeeTextures.get(subject.getItemStack().getItem()));
-				}
-			}
-		);
-		*/
 	}
 }

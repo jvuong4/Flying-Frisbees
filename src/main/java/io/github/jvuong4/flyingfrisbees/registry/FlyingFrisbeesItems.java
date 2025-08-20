@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableList;
 import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
 import io.github.jvuong4.flyingfrisbees.item.Frisbee;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.dispenser.ProjectileDispenserBehavior;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -47,6 +49,7 @@ public class FlyingFrisbeesItems {
 				.equippableUnswappable(EquipmentSlot.HEAD)
 				.registryKey(RegistryKey.of(RegistryKeys.ITEM, FlyingFrisbees.id(name)))));
 		allItems.add(item);
+		DispenserBlock.registerBehavior(item, new ProjectileDispenserBehavior(item));
 		return item;
 	}
 

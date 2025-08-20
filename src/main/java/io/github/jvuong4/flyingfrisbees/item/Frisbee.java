@@ -60,8 +60,8 @@ public class Frisbee extends Item implements ProjectileItem {
 			FrisbeeEntity frisbee = new FrisbeeEntity(world, user, itemStack);
 			//ServerWorld serverWorld = (ServerWorld)world;
 			//FrisbeeEntity frisbee = ProjectileEntity.spawnWithVelocity(FrisbeeEntity::new, serverWorld, itemStack, user, 0.0F, 1.5F, 1.0F);
-			frisbee.setItem(itemStack);
-			frisbee.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.5F, 1.0F);
+			frisbee.setItem(itemStack.copy());
+			frisbee.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 0.8F, 1.0F);
 			world.spawnEntity(frisbee);
 		}
 

@@ -37,18 +37,23 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 	public FrisbeeEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
 		super(entityType, world);
-		isSpinning = true;
-
+		constructFrisbee();
 	}
 
 	public FrisbeeEntity(World world, LivingEntity owner, ItemStack stack) {
 		super(FlyingFrisbeesEntities.FRISBEE, owner, world, stack, (ItemStack)null);
-		isSpinning = true;
+		constructFrisbee();
 	}
 
 	public FrisbeeEntity(World world, double x, double y, double z, ItemStack stack) {
 		super(FlyingFrisbeesEntities.FRISBEE, x, y, z, world, stack, stack);
+		constructFrisbee();
+	}
+
+	public void constructFrisbee()
+	{
 		isSpinning = true;
+		pickupType = PickupPermission.ALLOWED;
 	}
 
 	/*
@@ -61,6 +66,11 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	public FrisbeeEntity(EntityType<Entity> entityEntityType, World world) {
 	}
 	 */
+
+	@Override
+	protected double getGravity() {
+		return 0.01;
+	}
 
 	@Override
 	protected ItemStack getDefaultItemStack()
@@ -83,14 +93,14 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		if (getWorld().isClient) return;
 		Entity entity = entityHitResult.getEntity();
 
+		if (!entity.isOnGround() && this.getY() - entity.getY() < 0.5 + (double)entity.getHeight() / 0.25) {
+			entity.startRiding(this);
+			return;
+		}
+
 		// facing = motion vector points opposite of entity look vector
 		boolean facing = this.getVelocity().dotProduct(entity.getRotationVector()) < 0;
 		if (facing && entity instanceof LivingEntity living) {
-			if (!entity.isOnGround() && this.getY() - entity.getY() < 1) {
-				entity.startRiding(this);
-				return;
-			}
-
 			EquipmentSlot slot = entityHitResult.getPos().distanceTo(entity.getEyePos()) < 0.5 &&
 				living.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty() ? EquipmentSlot.MAINHAND
 				: living.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty() ? EquipmentSlot.OFFHAND
@@ -132,7 +142,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		}
 
 		this.deflect(ProjectileDeflection.SIMPLE, entity, this.getOwner(), false);
-		this.setVelocity(this.getVelocity().multiply(0.02, 0.2, 0.02));
+		this.setVelocity(this.getVelocity().multiply(0.2, 0.8, 0.2));
 		this.playSound(SoundEvents.ITEM_TRIDENT_HIT, 1.0F, 1.0F);
 	}
 
@@ -146,7 +156,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	@Override
 	protected void age() {
 		++this.life;
-		if (this.life >= 1800) {
+		if (this.life >= 1200) {
 			World var21 = this.getWorld();
 			if (var21 instanceof ServerWorld) {
 				ServerWorld serverWorld3 = (ServerWorld)var21;

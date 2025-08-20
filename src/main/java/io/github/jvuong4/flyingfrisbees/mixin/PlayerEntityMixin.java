@@ -38,7 +38,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		if (entity instanceof LivingEntity e) {
 			ItemStack stack = e.getEquippedStack(EquipmentSlot.HEAD);
 			boolean frisbee = stack.isIn(FlyingFrisbees.Tags.FETCHABLE )|| stack.isOf(FlyingFrisbeesItems.FRISBEE);
-			if (frisbee && e.isSneaking()) {
+			if (frisbee && ((e.isSneaking() && e.isPlayer()) || (!e.isPlayer()))) {
 				var result = ((Frisbee)stack.getRegistryEntry().value()).retrieve((PlayerEntity) (Entity) this, e, e.getEquippedStack(EquipmentSlot.HEAD),this.getActiveHand());
 				if (result != null)
 				{

@@ -20,13 +20,12 @@ public class FrisbeeEntityModel extends DefaultedEntityGeoModel<FrisbeeEntity> {
 	public static Map<Item, Identifier> frisbeeTextures = new HashMap<>();
 
 	public FrisbeeEntityModel() {
-		super(FlyingFrisbees.id("frisbee"));//Identifier.of(FlyingFrisbees.MOD_ID,"frisbee"));
+		super(FlyingFrisbees.id("frisbee"));
 	}
 
 	@Override
 	public Identifier getTextureResource(GeoRenderState renderState) {
-		//renderState.getGeckolibData(DataTickets.ITEM);
-		//return frisbeeTextures.get(renderState.getOrDefaultGeckolibData(DataTickets.ITEM, FlyingFrisbeesItems.FRISBEE));
+
 		return frisbeeTextures.get(renderState.getGeckolibData(DataTickets.ITEM));
 	}
 
@@ -40,18 +39,4 @@ public class FrisbeeEntityModel extends DefaultedEntityGeoModel<FrisbeeEntity> {
 		return Identifier.of(FlyingFrisbees.MOD_ID, "geckolib/animations/frisbee.animation.json");
 	}
 
-	/*
-	@Override
-	public Identifier getTextureResource(GeoRenderState renderState) {
-		return Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/frisbee.png");
-	}
-*/
 }
-
-///public final void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-///         this.getRootPart().render(matrices, vertices, light, overlay, color);
-///     }
-///
-///     public final void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
-///         this.render(matrices, vertices, light, overlay, -1);
-///     }
