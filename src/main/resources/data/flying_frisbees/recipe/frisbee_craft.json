@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" R ",
+		"RPR",
+		" R "
+	],
+	"key": {
+		"R": "minecraft:resin_clump",
+		"P": "minecraft:phantom_membrane"
+	},
+	"result": {
+		"id": "flying_frisbees:frisbee",
+		"count": 1
+	}
+}

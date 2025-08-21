@@ -17,5 +17,7 @@
 	"item.flying_frisbees.magenta_frisbee": "Magenta Frisbee",
 	"item.flying_frisbees.pink_frisbee": "Pink Frisbee",
 
-	"itemGroup.flying_frisbees": "Flying Frisbees"
+	"itemGroup.flying_frisbees": "Flying Frisbees",
+
+	"entity.flying_frisbees.frisbee": "Frisbee"
 }

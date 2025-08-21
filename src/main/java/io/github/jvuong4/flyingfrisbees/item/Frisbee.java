@@ -44,7 +44,7 @@ public class Frisbee extends Item implements ProjectileItem {
 
 	@Override
 	public ActionResult use(World world, PlayerEntity user, Hand hand) {
-		FlyingFrisbees.LOGGER.info("Spawning Frisbee");
+		//FlyingFrisbees.LOGGER.info("Spawning Frisbee");
 		ItemStack itemStack = user.getStackInHand(hand);
 		world.playSound(
 			null,
@@ -67,6 +67,7 @@ public class Frisbee extends Item implements ProjectileItem {
 
 		user.incrementStat(Stats.USED.getOrCreateStat(this));
 		itemStack.decrementUnlessCreative(1, user);
+
 		return ActionResult.SUCCESS;
 	}
 

@@ -1,0 +1,10 @@
+{
+	"type": "minecraft:crafting_transmute",
+	"category": "misc",
+	"group": "frisbee_dye",
+	"input": "#flying_frisbees:frisbee",
+	"material": "minecraft:lime_dye",
+	"result": {
+		"id": "flying_frisbees:lime_frisbee"
+	}
+}

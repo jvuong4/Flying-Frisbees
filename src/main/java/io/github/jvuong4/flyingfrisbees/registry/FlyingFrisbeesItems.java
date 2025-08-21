@@ -47,7 +47,9 @@ public class FlyingFrisbeesItems {
 			function.apply(new Item.Settings()
 				.maxCount(1)
 				.equippableUnswappable(EquipmentSlot.HEAD)
+				//.useCooldown(0.5f)
 				.registryKey(RegistryKey.of(RegistryKeys.ITEM, FlyingFrisbees.id(name)))));
+
 		allItems.add(item);
 		DispenserBlock.registerBehavior(item, new ProjectileDispenserBehavior(item));
 		return item;

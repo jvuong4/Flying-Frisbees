@@ -15,6 +15,7 @@ public class FlyingFrisbees implements ModInitializer {
 
 	public static final class Tags {
 		public static final TagKey<Item> FETCHABLE = TagKey.of(RegistryKeys.ITEM, Identifier.of(MOD_ID, "fetchable"));
+		public static final TagKey<Item> FRISBEE = TagKey.of(RegistryKeys.ITEM, Identifier.of(MOD_ID, "frisbee"));
 	}
 
 	@Override
