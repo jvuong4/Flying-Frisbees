@@ -24,13 +24,13 @@
 	"tag.item.fetchable": "Fetchable",
 	"tag.item.frisbee": "Frisbee",
 
-	"death.attack.flying_frisbees.frisbee": "%1$s was frisbeed to death",
+	"death.attack.flying_frisbees.frisbee": "%1$s was frisbeed to death by %2$s",
 	"death.attack.flying_frisbees.frisbee.item": "%1$s was frisbeed to death from %3$s by %2$s",
 	"death.attack.flying_frisbees.frisbee.player": "%1$s was frisbeed to death by %2$s",
-	"death.attack.flying_frisbees.frisbee2": "%1$s lost ultimate frisbee",
-	"death.attack.flying_frisbees.frisbee2.item": "%1$s lost ultimate frisbee from %3$s. %2$s was the winner",
-	"death.attack.flying_frisbees.frisbee2.player": "%1$s lost ultimate frisbee. %2$s was the winner",
-	"death.attack.flying_frisbees.frisbee3": "%1$s didn't see that frisbee",
-	"death.attack.flying_frisbees.frisbee3.item": "%1$s didn't catch %3$s from %2$s",
-	"death.attack.flying_frisbees.frisbee3.player": "%1$s failed to catch %2$s's frisbee"
+	"death.attack.flying_frisbees.frisbee2": "%1$s lost ultimate frisbee against %2$s",
+	"death.attack.flying_frisbees.frisbee2.item": "%1$s lost ultimate frisbee against %2$s with %3$s",
+	"death.attack.flying_frisbees.frisbee2.player": "%1$s lost ultimate frisbee against %2$s",
+	"death.attack.flying_frisbees.frisbee3": "%1$s didn't catch %2$s's frisbee :(",
+	"death.attack.flying_frisbees.frisbee3.item": "%1$s didn't catch %3$s from %2$s :(",
+	"death.attack.flying_frisbees.frisbee3.player": "%1$s didn't catch %2$s's frisbee :("
 }
