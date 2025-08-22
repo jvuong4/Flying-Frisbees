@@ -17,6 +17,7 @@ public class FlyingFrisbeesRegistry {
 	public static void init() {
 		FlyingFrisbeesItems.init();
 		FlyingFrisbeesEntities.init();
+		FlyingFrisbeesDamageTypes.init();
 
 		Registry.register(Registries.ITEM_GROUP, FlyingFrisbeesItems.ITEM_GROUP_KEY, FlyingFrisbeesItems.ITEM_GROUP);
 

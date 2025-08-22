@@ -1,11 +1,14 @@
 package io.github.jvuong4.flyingfrisbees.entity;
 
+import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
+import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesDamageTypes;
 import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesEntities;
 import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesItems;
 import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesRegistry;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -20,6 +23,9 @@ import software.bernie.geckolib.animatable.manager.AnimatableManager;
 import software.bernie.geckolib.animatable.processing.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+
+import net.minecraft.registry.RegistryKeys;
 
 public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEntity {
 	//public static final DataTicket<Integer> FRISBEE_TYPE = DataTicket.create("frisbee_type", Integer.class);
@@ -117,12 +123,27 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		//this thing's weak as hell lmao
 		float f = 1.0F;
 		Entity entity2 = this.getOwner();
-		//TODO: make a frisbee damage source
-		DamageSource damageSource = this.getDamageSources().trident(this, (Entity)(entity2 == null ? this : entity2));
 		World var7 = this.getWorld();
+		DamageSource damageSource; // = this.getDamageSources().trident(this, (Entity)(entity2 == null ? this : entity2));
 
 		this.dealtDamage = true;
 		ServerWorld serverWorld = (ServerWorld)var7;
+		switch(this.getRandom().nextBetween(1,3))
+		{
+			case 1:
+				damageSource = var7.getDamageSources().create(FlyingFrisbeesDamageTypes.FRISBEE_KEY, this, (Entity)(entity2 == null ? this : entity2));
+				break;
+			case 2:
+				damageSource = var7.getDamageSources().create(FlyingFrisbeesDamageTypes.FRISBEE2_KEY, this, (Entity)(entity2 == null ? this : entity2));
+				break;
+			case 3:
+				damageSource = var7.getDamageSources().create(FlyingFrisbeesDamageTypes.FRISBEE3_KEY, this, (Entity)(entity2 == null ? this : entity2));
+				break;
+			default:
+				damageSource = var7.getDamageSources().create(FlyingFrisbeesDamageTypes.FRISBEE_KEY, this, (Entity)(entity2 == null ? this : entity2));
+				break;
+		}
+
 		if (entity.damage(serverWorld, damageSource, f)) {
 			if (entity.getType() == EntityType.ENDERMAN) {
 				return;
@@ -143,7 +164,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 		this.deflect(ProjectileDeflection.SIMPLE, entity, this.getOwner(), false);
 		this.setVelocity(this.getVelocity().multiply(0.2, 0.8, 0.2));
-		this.playSound(SoundEvents.ITEM_TRIDENT_HIT, 1.0F, 1.0F);
+		this.playSound(SoundEvents.ENTITY_FOX_HURT, 1.0F, 1.0F);
 	}
 
 	@Override
