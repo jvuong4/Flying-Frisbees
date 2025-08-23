@@ -99,8 +99,9 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		if (getWorld().isClient) return;
 		Entity entity = entityHitResult.getEntity();
 
-		if (!entity.isOnGround() && this.getY() - entity.getY() < 0.5 + (double)entity.getHeight() / 0.25) {
+		if (!entity.isOnGround() && this.getY() - entity.getY() < 0.5 + (double)entity.getDimensions(this.getPose()).height() * 0.25) {
 			entity.startRiding(this);
+			this.setVelocity(this.getVelocity().add(this.getVelocity().getX()*1.5,this.getVelocity().getY()+0.1,this.getVelocity().getZ()*1.5));
 			return;
 		}
 
@@ -164,7 +165,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 		this.deflect(ProjectileDeflection.SIMPLE, entity, this.getOwner(), false);
 		this.setVelocity(this.getVelocity().multiply(0.2, 0.8, 0.2));
-		this.playSound(SoundEvents.ENTITY_FOX_HURT, 1.0F, 1.0F);
+		this.playSound(SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, 1.0F, 1.0F);
 	}
 
 	@Override
