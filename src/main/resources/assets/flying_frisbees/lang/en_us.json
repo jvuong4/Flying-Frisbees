@@ -17,12 +17,32 @@
 	"item.flying_frisbees.magenta_frisbee": "Magenta Frisbee",
 	"item.flying_frisbees.pink_frisbee": "Pink Frisbee",
 
+	"lore.flying_frisbees.frisbee": "A Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. Sometimes, all you want to do is go fetch.",
+	"lore.flying_frisbees.white_frisbee": "A White Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A minimalist color for nice and simple doggies.",
+	"lore.flying_frisbees.light_gray_frisbee": "A Light Gray Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A modern color for modern doggies.",
+	"lore.flying_frisbees.gray_frisbee": "A Gray Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A stable color for insightful canines.",
+	"lore.flying_frisbees.black_frisbee": "A Black Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. For doggies that are NOT having a phase.",
+	"lore.flying_frisbees.brown_frisbee": "A Brown Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. For doggies that probably played too much in the mud.",
+	"lore.flying_frisbees.red_frisbee": "A Red Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. For doggies that are just raring to go.",
+	"lore.flying_frisbees.orange_frisbee": "An Orange Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A playful color for playful doggies.",
+	"lore.flying_frisbees.yellow_frisbee": "A Yellow Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A cheerful color for cheerful doggies.",
+	"lore.flying_frisbees.lime_frisbee": "A Lime Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A fresh color for doggies that love spring.",
+	"lore.flying_frisbees.green_frisbee": "A Green Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A lucky color for a lucky doggy.",
+	"lore.flying_frisbees.cyan_frisbee": "A Cyan Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A cool color for cool doggies.",
+	"lore.flying_frisbees.light_blue_frisbee": "A Light Blue Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A color for doggies who like to see the sky.",
+	"lore.flying_frisbees.blue_frisbee": "A Blue Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A color for doggies who like to make a splash.",
+	"lore.flying_frisbees.purple_frisbee": "A Purple Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A royal purple color for elegant doggies.",
+	"lore.flying_frisbees.magenta_frisbee": "A Magenta Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A sweet color for even sweeter doggies.",
+	"lore.flying_frisbees.pink_frisbee": "A Pink Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A soft color for even softer doggies.",
+
 	"itemGroup.flying_frisbees": "Flying Frisbees",
 
 	"entity.flying_frisbees.frisbee": "Frisbee",
 
 	"tag.item.fetchable": "Fetchable",
 	"tag.item.frisbee": "Frisbee",
+	"tag.entity.frisbee_catch_blacklist": "Not Catchable by Frisbees",
+	"tag.entity.frisbee_catch_whitelist": "Additional Entities Catchable by Frisbee",
 
 	"death.attack.flying_frisbees.frisbee": "%1$s was frisbeed to death by %2$s",
 	"death.attack.flying_frisbees.frisbee.item": "%1$s was frisbeed to death from %3$s by %2$s",

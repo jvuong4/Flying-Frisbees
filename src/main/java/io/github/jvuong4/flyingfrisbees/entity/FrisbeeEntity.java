@@ -99,7 +99,13 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		if (getWorld().isClient) return;
 		Entity entity = entityHitResult.getEntity();
 
-		if (!entity.isOnGround() && this.getY() - entity.getY() < 0.5 + (double)entity.getDimensions(this.getPose()).height() * 0.25) {
+		if (//frisbee blacklist logic has greatest priority
+			!entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_BLACKLIST)
+			//check if in whitelist or if it is a MobEntity or LivingEntity
+			&&	(entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_WHITELIST) || entity instanceof LivingEntity)
+			//frisbee catch logic
+			&&	(!entity.isOnGround() && this.getY() - entity.getY() < 0.5 + (double)entity.getDimensions(this.getPose()).height() * 0.25)
+		) {
 			entity.startRiding(this);
 			this.setVelocity(this.getVelocity().add(this.getVelocity().getX()*1.5,this.getVelocity().getY()+0.1,this.getVelocity().getZ()*1.5));
 			return;

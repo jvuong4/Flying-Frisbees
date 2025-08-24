@@ -51,6 +51,7 @@ public class FlyingFrisbeesItems {
 				.registryKey(RegistryKey.of(RegistryKeys.ITEM, FlyingFrisbees.id(name)))));
 
 		allItems.add(item);
+		//TODO: make dispensed frisbees able to be picked up (have the frisbee entity call constructFrisbee())
 		DispenserBlock.registerBehavior(item, new ProjectileDispenserBehavior(item));
 		return item;
 	}

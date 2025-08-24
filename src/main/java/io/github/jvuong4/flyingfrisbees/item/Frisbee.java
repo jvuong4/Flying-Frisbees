@@ -34,13 +34,6 @@ public class Frisbee extends Item implements ProjectileItem {
 		target.equipStack(EquipmentSlot.HEAD,item);
 		return ActionResult.PASS;
 	}
-	/*
-	@Override
-	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-
-		return super.finishUsing(stack, world, user);
-	}
-	*/
 
 	@Override
 	public ActionResult use(World world, PlayerEntity user, Hand hand) {
