@@ -23,6 +23,7 @@ import software.bernie.geckolib.animatable.manager.AnimatableManager;
 import software.bernie.geckolib.animatable.processing.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import net.minecraft.entity.player.PlayerEntity;
 
 
 import net.minecraft.registry.RegistryKeys;
@@ -40,6 +41,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	private boolean dealtDamage = false;
 	private boolean isSpinning = true;
 	private int life;
+	public boolean isDispensed = false;
 
 	public FrisbeeEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
 		super(entityType, world);
@@ -99,21 +101,27 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		if (getWorld().isClient) return;
 		Entity entity = entityHitResult.getEntity();
 
+		// facing = motion vector points opposite of entity look vector
+		boolean facing = this.getVelocity().dotProduct(entity.getRotationVector()) < 0;
+
 		if (//frisbee blacklist logic has greatest priority
 			!entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_BLACKLIST)
 			//check if in whitelist or if it is a MobEntity or LivingEntity
-			&&	(entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_WHITELIST) || entity instanceof LivingEntity)
+			&&	(entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_WHITELIST) || entity instanceof PlayerEntity)
 			//frisbee catch logic
-			&&	(!entity.isOnGround() && this.getY() - entity.getY() < 0.5 + (double)entity.getDimensions(this.getPose()).height() * 0.25)
+			&&	(
+				//Modfest dispensed frisbee tweak
+				(isDispensed && !entity.isOnGround()) ||
+				(!entity.isOnGround() && this.getY() - entity.getY() < 0.5 + (double)entity.getDimensions(this.getPose()).height() * 0.25)
+			)
 		) {
 			entity.startRiding(this);
 			this.setVelocity(this.getVelocity().add(this.getVelocity().getX()*1.5,this.getVelocity().getY()+0.1,this.getVelocity().getZ()*1.5));
 			return;
 		}
 
-		// facing = motion vector points opposite of entity look vector
-		boolean facing = this.getVelocity().dotProduct(entity.getRotationVector()) < 0;
-		if (facing && entity instanceof LivingEntity living) {
+
+		if (!isDispensed && facing && entity instanceof LivingEntity living) {
 			EquipmentSlot slot = entityHitResult.getPos().distanceTo(entity.getEyePos()) < 0.5 &&
 				living.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty() ? EquipmentSlot.MAINHAND
 				: living.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty() ? EquipmentSlot.OFFHAND
