@@ -106,12 +106,15 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 		if (//frisbee blacklist logic has greatest priority
 			!entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_BLACKLIST)
+			//check if entity not already riding something
+			&& !entity.hasVehicle()
 			//check if in whitelist or if it is a MobEntity or LivingEntity
-			&&	(entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_WHITELIST) || entity instanceof PlayerEntity)
+			&&	(entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_WHITELIST) || entity instanceof PlayerEntity || entity.getType() == EntityType.PHANTOM)
 			//frisbee catch logic
 			&&	(
 				//Modfest dispensed frisbee tweak
 				(isDispensed && !entity.isOnGround()) ||
+					entity.getType() == EntityType.PHANTOM	||
 				(!entity.isOnGround() && this.getY() - entity.getY() < 0.5 + (double)entity.getDimensions(this.getPose()).height() * 0.25)
 			)
 		) {
@@ -121,7 +124,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		}
 
 
-		if (!isDispensed && facing && entity instanceof LivingEntity living) {
+		if (!isDispensed && facing && entity instanceof PlayerEntity living) {
 			EquipmentSlot slot = entityHitResult.getPos().distanceTo(entity.getEyePos()) < 0.5 &&
 				living.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty() ? EquipmentSlot.MAINHAND
 				: living.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty() ? EquipmentSlot.OFFHAND

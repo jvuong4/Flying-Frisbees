@@ -1,6 +1,7 @@
 {
 	"replace": false,
 	"values": [
-		"losing_my_marbles:marble"
+		"losing_my_marbles:marble",
+		"minecraft:phantom"
 	]
 }
