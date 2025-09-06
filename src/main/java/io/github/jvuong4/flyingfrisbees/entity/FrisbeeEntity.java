@@ -35,7 +35,6 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 	private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
-	public static final ItemStack defaultItemStack = new ItemStack(FlyingFrisbeesItems.FRISBEE);
 	private static final boolean DEFAULT_DEALT_DAMAGE = false;
 	private boolean dealtDamage = false;
 	private boolean isSpinning = true;
@@ -81,7 +80,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	@Override
 	protected ItemStack getDefaultItemStack()
 	{
-		return defaultItemStack;
+		return new ItemStack(FlyingFrisbeesItems.FRISBEE);
 	}
 	public void setItem(ItemStack itemStack)
 	{
