@@ -8,7 +8,6 @@ import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesRegistry;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -24,9 +23,6 @@ import software.bernie.geckolib.animatable.processing.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-
-import net.minecraft.registry.RegistryKeys;
-
 public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEntity {
 	//public static final DataTicket<Integer> FRISBEE_TYPE = DataTicket.create("frisbee_type", Integer.class);
 
@@ -35,7 +31,6 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 	private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
-	public static final ItemStack defaultItemStack = new ItemStack(FlyingFrisbeesItems.FRISBEE);
 	private static final boolean DEFAULT_DEALT_DAMAGE = false;
 	private boolean dealtDamage = false;
 	private boolean isSpinning = true;
@@ -60,6 +55,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	{
 		isSpinning = true;
 		pickupType = PickupPermission.ALLOWED;
+		onSetItemStack(getItemStack());
 	}
 
 	/*
@@ -81,13 +77,19 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	@Override
 	protected ItemStack getDefaultItemStack()
 	{
-		return defaultItemStack;
+		return new ItemStack(FlyingFrisbeesItems.FRISBEE);
 	}
-	public void setItem(ItemStack itemStack)
+	private void onSetItemStack(ItemStack itemStack)
 	{
-		setStack(itemStack);
 		var path = itemStack.getRegistryEntry().getKey().get().getValue().getPath();
 		this.setAttached(FlyingFrisbeesRegistry.FRISBEE_TEXTURE_ATTACHMENT, path);
+	}
+
+	@Override
+	public void setStack(ItemStack itemStack)
+	{
+		super.setStack(itemStack);
+		this.onSetItemStack(itemStack);
 	}
 
 	@Nullable
