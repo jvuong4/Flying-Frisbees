@@ -87,6 +87,13 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		this.setAttached(FlyingFrisbeesRegistry.FRISBEE_TEXTURE_ATTACHMENT, path);
 	}
 
+	/** Since if the code itself depended on a now-missing method, other mods probably will. */
+	@Deprecated(forRemoval = true)
+	public void setItem(ItemStack itemStack)
+	{
+		this.setStack(itemStack);
+	}
+
 	@Override
 	public void setStack(ItemStack itemStack)
 	{
