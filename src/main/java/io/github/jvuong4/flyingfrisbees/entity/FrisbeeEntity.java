@@ -59,6 +59,15 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		pickupType = PickupPermission.ALLOWED;
 		onSetItemStack(getItemStack());
 	}
+	public void constructFrisbee(boolean pickupable)
+	{
+		isSpinning = true;
+		if(pickupable)
+			pickupType = PickupPermission.ALLOWED;
+		else
+			pickupType = PickupPermission.DISALLOWED;
+		onSetItemStack(getItemStack());
+	}
 
 	/*
 	public static DefaultAttributeContainer.Builder createAttributes() {

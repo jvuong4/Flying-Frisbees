@@ -82,7 +82,7 @@ public class FlyingFrisbeesItems {
 
 					Position position = projectileSettings.positionFunction().getDispensePosition(pointer, direction);
 					FrisbeeEntity frisbee = (FrisbeeEntity)ProjectileEntity.spawnWithVelocity(projectileItem.createEntity(serverWorld, position, stack, direction), serverWorld, stack, (double)direction.getOffsetX(), (double)direction.getOffsetY(), (double)direction.getOffsetZ(), projectileSettings.power(), projectileSettings.uncertainty()*0.1f);
-					frisbee.constructFrisbee();
+					frisbee.constructFrisbee(false);
 					frisbee.isDispensed = true;
 					stack.decrement(1);
 				}
