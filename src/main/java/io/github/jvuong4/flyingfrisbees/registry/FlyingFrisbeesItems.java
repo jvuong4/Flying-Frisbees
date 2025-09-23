@@ -3,6 +3,7 @@ package io.github.jvuong4.flyingfrisbees.registry;
 import com.google.common.collect.ImmutableList;
 import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
 import io.github.jvuong4.flyingfrisbees.item.Frisbee;
+import io.github.jvuong4.flyingfrisbees.item.Frisboomerang;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
@@ -57,6 +58,7 @@ public class FlyingFrisbeesItems {
 	public static final Frisbee PINK_FRISBEE = registerFrisbee("pink_frisbee", Frisbee::new);
 	public static final Frisbee DELTA_FRISBEE = registerFrisbee("delta_frisbee", Frisbee::new);
 
+	public static final Frisboomerang FRISBOOMERANG = registerFrisboomerang("loyal_frisbee", Frisboomerang::new);
 
 	private static Frisbee registerFrisbee(String name, Function<Item.Settings, Item> function)
 	{
@@ -91,6 +93,20 @@ public class FlyingFrisbeesItems {
 			}
 		});
 		return (Frisbee)item;
+	}
+
+	private static Frisboomerang registerFrisboomerang(String name, Function<Item.Settings, Item> function)
+	{
+		Item item = Registry.register(Registries.ITEM, FlyingFrisbees.id(name),
+			function.apply(new Item.Settings()
+				.maxCount(1)
+				.equippableUnswappable(EquipmentSlot.HEAD)
+				//.useCooldown(0.5f)
+				.registryKey(RegistryKey.of(RegistryKeys.ITEM, FlyingFrisbees.id(name)))));
+
+		allItems.add(item);
+		//Loyal Frisbees cannot be dispensed.
+		return (Frisboomerang)item;
 	}
 
 	//ItemGroup Stuff :o

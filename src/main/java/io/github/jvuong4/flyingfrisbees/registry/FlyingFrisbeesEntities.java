@@ -4,7 +4,6 @@ import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
 import io.github.jvuong4.flyingfrisbees.entity.FrisbeeEntity;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
@@ -32,8 +31,6 @@ public class FlyingFrisbeesEntities {
 			.maxTrackingRange(4).trackingTickInterval(20)
 			.build(FRISBEE_KEY)
 	);
-
-
 }
 
 //we can ignore this teehee :3

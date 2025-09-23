@@ -8,8 +8,10 @@ import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesRegistry;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.EntityHitResult;
@@ -30,13 +32,17 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	protected static final RawAnimation SPINNING_ANIM = RawAnimation.begin().thenLoop("animation.frisbee.spinning");
 	protected static final RawAnimation STOPPED_ANIM = RawAnimation.begin().thenLoop("animation.frisbee.stopped");
 
-	private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+	protected final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
-	private static final boolean DEFAULT_DEALT_DAMAGE = false;
-	private boolean dealtDamage = false;
-	private boolean isSpinning = true;
-	private int life;
+	protected static final boolean DEFAULT_DEALT_DAMAGE = false;
+	protected boolean dealtDamage = false;
+	protected boolean isSpinning = true;
+	protected int life;
+	public boolean isLoyal = false;
+	private boolean isReturning = false;
 	public boolean isDispensed = false;
+
+	private int timeInGround;
 
 	public FrisbeeEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
 		super(entityType, world);
@@ -58,6 +64,8 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		isSpinning = true;
 		pickupType = PickupPermission.ALLOWED;
 		onSetItemStack(getItemStack());
+		isLoyal = true;
+		timeInGround = 0;
 	}
 	public void constructFrisbee(boolean pickupable)
 	{
@@ -67,18 +75,9 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		else
 			pickupType = PickupPermission.DISALLOWED;
 		onSetItemStack(getItemStack());
+		isLoyal = true;
+		timeInGround = 0;
 	}
-
-	/*
-	public static DefaultAttributeContainer.Builder createAttributes() {
-		return
-	}
-	 */
-
-	/*
-	public FrisbeeEntity(EntityType<Entity> entityEntityType, World world) {
-	}
-	 */
 
 	@Override
 	protected double getGravity() {
@@ -124,10 +123,12 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 		if (//frisbee blacklist logic has greatest priority
 			!entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_BLACKLIST)
+			//loyal frisbees cannot catch entities while returning
+			&& (!isLoyal || (isLoyal && !isReturning))
 			//check if entity not already riding something
 			&& !entity.hasVehicle()
 			//check if in whitelist or if it is a MobEntity or LivingEntity
-			&&	(entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_WHITELIST) || entity instanceof PlayerEntity || entity.getType() == EntityType.PHANTOM)
+			&&	(entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_WHITELIST) || entity instanceof MobEntity || entity.getType() == EntityType.PHANTOM)
 			//frisbee catch logic
 			&&	(
 				//Modfest dispensed frisbee tweak
@@ -142,7 +143,9 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		}
 
 
-		if (!isDispensed && facing && entity instanceof PlayerEntity living) {
+		//Catch Logic
+		//Loyal frisbees cannot be caught.
+		if (!isLoyal && !isDispensed && facing && entity instanceof PlayerEntity living) {
 			EquipmentSlot slot = entityHitResult.getPos().distanceTo(entity.getEyePos()) < 0.5 &&
 				living.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty() ? EquipmentSlot.MAINHAND
 				: living.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty() ? EquipmentSlot.OFFHAND
@@ -207,17 +210,68 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	public void tick() {
 		super.tick();
 		if(this.isInGround())
-			isSpinning = false;
+		{
+			if (!isLoyal)
+				isSpinning = false;
+			if(timeInGround++ > 4)
+				this.dealtDamage = true;
+		}
+
+		if(isLoyal)
+		{
+			Entity entity = this.getOwner();
+			if (this.dealtDamage || this.isNoClip() && entity != null) {
+				//drop as item when owner is dead
+				if (!this.isOwnerAlive()) {
+					World var4 = this.getWorld();
+					if (var4 instanceof ServerWorld) {
+						ServerWorld serverWorld = (ServerWorld)var4;
+						if (this.pickupType == PickupPermission.ALLOWED) {
+							this.dropStack(serverWorld, this.asItemStack(), 0.1F);
+						}
+					}
+					this.discard();
+				} else {
+					//after returning to non-player entity
+					if (!(entity instanceof PlayerEntity) && this.getPos().distanceTo(entity.getEyePos()) < (double)entity.getWidth() + 1.0) {
+						this.discard();
+						return;
+					}
+
+					this.setNoClip(true);
+					Vec3d vec3d = entity.getEyePos().subtract(this.getPos());
+					//this.setPos(this.getX(), this.getY() + vec3d.y * 0.015 * (double)1, this.getZ());
+					this.setVelocity(this.getVelocity().multiply(0.95).add(vec3d.normalize().multiply(0.05)));
+					//if (!isReturning) {
+					//this.playSound(SoundEvents.ITEM_TRIDENT_RETURN, 10.0F, 1.0F);
+					//isReturning = true;
+					//isSpinning = true;
+					//}
+
+
+				}
+			}
+		}
+	}
+
+	private boolean isOwnerAlive() {
+		Entity entity = this.getOwner();
+		if (entity != null && entity.isAlive()) {
+			return !(entity instanceof ServerPlayerEntity) || !entity.isSpectator();
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	protected void age() {
 		++this.life;
-		if (this.life >= 1200) {
+		//frisbees will only last for 40 seconds before dropping as an item
+		if (this.life >= 800 && !isLoyal) {
 			World var21 = this.getWorld();
 			if (var21 instanceof ServerWorld) {
 				ServerWorld serverWorld3 = (ServerWorld)var21;
-				this.dropStack(serverWorld3, this.asItemStack(), 0.1F);
+				this.dropStack(serverWorld3, this.asItemStack().copy(), 0.1F);
 			}
 			this.discard();
 		}
@@ -227,8 +281,8 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 		controllers.add(
-			// Add our animation controller
-			new AnimationController<>(10, state -> state.setAndContinue(this.isSpinning ? SPINNING_ANIM : STOPPED_ANIM))
+			// Add our animation controller. Loyal Frisbees always spin
+			new AnimationController<>(1, state -> state.setAndContinue(this.isSpinning || isLoyal ? SPINNING_ANIM : STOPPED_ANIM))
 		);
 	}
 

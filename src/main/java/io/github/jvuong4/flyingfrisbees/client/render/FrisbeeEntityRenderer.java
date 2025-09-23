@@ -41,6 +41,7 @@ public class FrisbeeEntityRenderer<R extends EntityRenderState & GeoRenderState>
 		frisbeeTextures.put(FlyingFrisbeesItems.WHITE_FRISBEE,Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/white_frisbee.png"));
 		frisbeeTextures.put(FlyingFrisbeesItems.YELLOW_FRISBEE,Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/yellow_frisbee.png"));
 		frisbeeTextures.put(FlyingFrisbeesItems.DELTA_FRISBEE,Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/delta_frisbee.png"));
+		frisbeeTextures.put(FlyingFrisbeesItems.FRISBOOMERANG,Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/loyal_frisbee.png"));
 	}
 
 	DataTicket<String> TEXTURE = DataTicket.create("frisbee_texture", String.class);
