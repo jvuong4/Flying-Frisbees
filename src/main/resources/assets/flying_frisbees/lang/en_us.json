@@ -16,6 +16,7 @@
 	"item.flying_frisbees.purple_frisbee": "Purple Frisbee",
 	"item.flying_frisbees.magenta_frisbee": "Magenta Frisbee",
 	"item.flying_frisbees.pink_frisbee": "Pink Frisbee",
+	"item.flying_frisbees.delta_frisbee": "Frisbee?",
 
 	"lore.flying_frisbees.frisbee": "A Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. Sometimes, all you want to do is go fetch.",
 	"lore.flying_frisbees.white_frisbee": "A White Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A minimalist color for nice and simple doggies.",
@@ -34,6 +35,7 @@
 	"lore.flying_frisbees.purple_frisbee": "A Purple Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A royal purple color for elegant doggies.",
 	"lore.flying_frisbees.magenta_frisbee": "A Magenta Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A sweet color for even sweeter doggies.",
 	"lore.flying_frisbees.pink_frisbee": "A Pink Frisbee! They can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A soft color for even softer doggies.",
+	"lore.flying_frisbees.delta_frisbee": "A Frisbee based on a certain fox programmer.",
 
 	"itemGroup.flying_frisbees": "Flying Frisbees",
 

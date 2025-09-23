@@ -43,6 +43,6 @@ public class FlyingFrisbeesClient implements ClientModInitializer {
 		FrisbeeEntityModel.frisbeeTextures.put(FlyingFrisbeesItems.RED_FRISBEE,Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/red_frisbee.png"));
 		FrisbeeEntityModel.frisbeeTextures.put(FlyingFrisbeesItems.WHITE_FRISBEE,Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/white_frisbee.png"));
 		FrisbeeEntityModel.frisbeeTextures.put(FlyingFrisbeesItems.YELLOW_FRISBEE,Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/yellow_frisbee.png"));
-
+		FrisbeeEntityModel.frisbeeTextures.put(FlyingFrisbeesItems.DELTA_FRISBEE,Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/delta_frisbee.png"));
 	}
 }

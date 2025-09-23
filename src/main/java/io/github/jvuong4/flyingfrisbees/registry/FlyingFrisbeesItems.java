@@ -55,6 +55,7 @@ public class FlyingFrisbeesItems {
 	public static final Frisbee PURPLE_FRISBEE = registerFrisbee("purple_frisbee", Frisbee::new);
 	public static final Frisbee MAGENTA_FRISBEE = registerFrisbee("magenta_frisbee", Frisbee::new);
 	public static final Frisbee PINK_FRISBEE = registerFrisbee("pink_frisbee", Frisbee::new);
+	public static final Frisbee DELTA_FRISBEE = registerFrisbee("delta_frisbee", Frisbee::new);
 
 
 	private static Frisbee registerFrisbee(String name, Function<Item.Settings, Item> function)

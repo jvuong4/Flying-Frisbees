@@ -35,7 +35,8 @@
 		"flying_frisbees:red_frisbee",
 		"flying_frisbees:white_frisbee",
 		"flying_frisbees:yellow_frisbee",
-		"flying_frisbees:frisbee_clean"
+		"flying_frisbees:frisbee_clean",
+		"flying_frisbees:delta_frisbee"
 	]
   }
 }
