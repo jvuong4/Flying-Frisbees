@@ -1,6 +1,6 @@
 package io.github.jvuong4.flyingfrisbees.item;
 
-import io.github.jvuong4.flyingfrisbees.entity.FrisbeeEntity;
+import io.github.jvuong4.flyingfrisbees.entity.FrisboomerangEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
@@ -35,9 +35,8 @@ public class Frisboomerang extends Item implements ProjectileItem {
 			0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F)
 		);
 		if (world instanceof ServerWorld serverWorld) {
-			FrisbeeEntity frisbee = new FrisbeeEntity(world, user, itemStack,true);
+			FrisboomerangEntity frisbee = new FrisboomerangEntity(world, user, itemStack);
 			frisbee.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 0.8F, 1.0F);
-			frisbee.isLoyal = true;
 			world.spawnEntity(frisbee);
 		}
 
@@ -49,7 +48,7 @@ public class Frisboomerang extends Item implements ProjectileItem {
 
 	@Override
 	public ProjectileEntity createEntity(World world, Position pos, ItemStack stack, Direction direction) {
-		FrisbeeEntity frisbee = new FrisbeeEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack,true);
+		FrisboomerangEntity frisbee = new FrisboomerangEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack);
 		return frisbee;
 	}
 }

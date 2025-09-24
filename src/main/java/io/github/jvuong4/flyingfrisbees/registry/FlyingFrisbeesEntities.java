@@ -2,6 +2,7 @@ package io.github.jvuong4.flyingfrisbees.registry;
 
 import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
 import io.github.jvuong4.flyingfrisbees.entity.FrisbeeEntity;
+import io.github.jvuong4.flyingfrisbees.entity.FrisboomerangEntity;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.minecraft.entity.EntityType;
@@ -30,6 +31,20 @@ public class FlyingFrisbeesEntities {
 			.dimensions(0.5F, 0.0625F)
 			.maxTrackingRange(4).trackingTickInterval(20)
 			.build(FRISBEE_KEY)
+	);
+
+	public static final RegistryKey<EntityType<?>> FRISBOOMERANG_KEY = RegistryKey.of(
+		Registries.ENTITY_TYPE.getKey(),
+		Identifier.of(FlyingFrisbees.MOD_ID, "frisboomerang")
+	);
+	public static final EntityType<FrisboomerangEntity> FRISBOOMERANG = Registry.register(
+		Registries.ENTITY_TYPE,
+		FRISBOOMERANG_KEY.getValue(),
+		EntityType.Builder.<FrisboomerangEntity>create(FrisboomerangEntity::new, SpawnGroup.MISC)
+			.dropsNothing()
+			.dimensions(0.5F, 0.0625F)
+			.maxTrackingRange(4).trackingTickInterval(20)
+			.build(FRISBOOMERANG_KEY)
 	);
 }
 

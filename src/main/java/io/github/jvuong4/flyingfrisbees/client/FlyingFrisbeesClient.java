@@ -3,6 +3,7 @@ package io.github.jvuong4.flyingfrisbees.client;
 import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
 import io.github.jvuong4.flyingfrisbees.client.render.FrisbeeEntityModel;
 import io.github.jvuong4.flyingfrisbees.client.render.FrisbeeEntityRenderer;
+import io.github.jvuong4.flyingfrisbees.client.render.FrisboomerangEntityRenderer;
 import io.github.jvuong4.flyingfrisbees.entity.FrisbeeEntity;
 import io.github.jvuong4.flyingfrisbees.item.Frisbee;
 import io.github.jvuong4.flyingfrisbees.registry.FlyingFrisbeesEntities;
@@ -25,6 +26,7 @@ public class FlyingFrisbeesClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		EntityRendererRegistry.register(FlyingFrisbeesEntities.FRISBEE, FrisbeeEntityRenderer::new);
+		EntityRendererRegistry.register(FlyingFrisbeesEntities.FRISBOOMERANG, FrisboomerangEntityRenderer::new);
 
 		FrisbeeEntityModel.frisbeeTextures.put(FlyingFrisbeesItems.FRISBEE,Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/frisbee.png"));
 		FrisbeeEntityModel.frisbeeTextures.put(FlyingFrisbeesItems.BLACK_FRISBEE,Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/black_frisbee.png"));
