@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableList;
 import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
 import io.github.jvuong4.flyingfrisbees.item.Frisbee;
 import io.github.jvuong4.flyingfrisbees.item.Frisboomerang;
+import io.github.jvuong4.flyingfrisbees.item.YoinkFrisbee;
+import io.github.jvuong4.flyingfrisbees.item.Frisboom;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
@@ -59,6 +61,8 @@ public class FlyingFrisbeesItems {
 	public static final Frisbee DELTA_FRISBEE = registerFrisbee("delta_frisbee", Frisbee::new);
 
 	public static final Frisboomerang FRISBOOMERANG = registerFrisboomerang("loyal_frisbee", Frisboomerang::new);
+	public static final Frisbee YOINK_FRISBEE = registerFrisbee("capturing_frisbee", YoinkFrisbee::new);
+	public static final Frisbee FRISBOOM = registerFrisbee("explosive_frisbee", Frisboom::new);
 
 	private static Frisbee registerFrisbee(String name, Function<Item.Settings, Item> function)
 	{
@@ -85,7 +89,8 @@ public class FlyingFrisbeesItems {
 
 					Position position = projectileSettings.positionFunction().getDispensePosition(pointer, direction);
 					FrisbeeEntity frisbee = (FrisbeeEntity)ProjectileEntity.spawnWithVelocity(projectileItem.createEntity(serverWorld, position, stack, direction), serverWorld, stack, (double)direction.getOffsetX(), (double)direction.getOffsetY(), (double)direction.getOffsetZ(), projectileSettings.power(), projectileSettings.uncertainty()*0.1f);
-					frisbee.constructFrisbee(false);
+					frisbee.isLoyal = false;
+					//frisbee.constructFrisbee(false);
 					frisbee.isDispensed = true;
 					stack.decrement(1);
 				}

@@ -1,15 +1,10 @@
 package io.github.jvuong4.flyingfrisbees.item;
 
-import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
 import io.github.jvuong4.flyingfrisbees.entity.FrisbeeEntity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ProjectileItem;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -19,25 +14,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
-public class Frisbee extends Item implements ProjectileItem {
-	public Frisbee(Item.Settings settings) {
+public class YoinkFrisbee extends Frisbee{//} implements ProjectileItem {
+	public YoinkFrisbee(Item.Settings settings) {
 		super(settings);
-	}
-
-	@Nullable
-	public ActionResult retrieve(PlayerEntity player, LivingEntity target, ItemStack targetItemStack, Hand playerHand) {
-		//player takes the targetItemStack from target and puts it in their playerHand
-		ItemStack item = player.getStackInHand(playerHand);
-		player.setStackInHand(playerHand, targetItemStack);
-		target.equipStack(EquipmentSlot.HEAD,item);
-		return ActionResult.PASS;
 	}
 
 	@Override
 	public ActionResult use(World world, PlayerEntity user, Hand hand) {
-		//FlyingFrisbees.LOGGER.info("Spawning Frisbee");
 		ItemStack itemStack = user.getStackInHand(hand);
 		world.playSound(
 			null,
@@ -50,10 +34,10 @@ public class Frisbee extends Item implements ProjectileItem {
 			0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F)
 		);
 		if (world instanceof ServerWorld serverWorld) {
-			FrisbeeEntity frisbee = new FrisbeeEntity(world, user, itemStack,false);
-			//ServerWorld serverWorld = (ServerWorld)world;
-			//FrisbeeEntity frisbee = ProjectileEntity.spawnWithVelocity(FrisbeeEntity::new, serverWorld, itemStack, user, 0.0F, 1.5F, 1.0F);
+			FrisbeeEntity frisbee = new FrisbeeEntity(world, user, itemStack);
 			frisbee.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 0.8F, 1.0F);
+			frisbee.isCapturing = true;
+			frisbee.isLoyal = false;
 			world.spawnEntity(frisbee);
 		}
 
@@ -65,7 +49,8 @@ public class Frisbee extends Item implements ProjectileItem {
 
 	@Override
 	public ProjectileEntity createEntity(World world, Position pos, ItemStack stack, Direction direction) {
-		FrisbeeEntity frisbee = new FrisbeeEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack,false);
+		FrisbeeEntity frisbee = new FrisbeeEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+		frisbee.isCapturing = true;
 		frisbee.isLoyal = false;
 		return frisbee;
 	}

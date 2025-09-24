@@ -56,5 +56,14 @@
 	"death.attack.flying_frisbees.frisbee2.player": "%1$s lost ultimate frisbee against %2$s",
 	"death.attack.flying_frisbees.frisbee3": "%1$s didn't catch %2$s's frisbee :(",
 	"death.attack.flying_frisbees.frisbee3.item": "%1$s didn't catch %3$s from %2$s :(",
-	"death.attack.flying_frisbees.frisbee3.player": "%1$s didn't catch %2$s's frisbee :("
+	"death.attack.flying_frisbees.frisbee3.player": "%1$s didn't catch %2$s's frisbee :(",
+	"death.attack.flying_frisbees.frisbee4": "%1$s was blown up by %2$s's frisbee",
+	"death.attack.flying_frisbees.frisbee4.item": "%1$s was blown up by %3$s from %2$s",
+	"death.attack.flying_frisbees.frisbee4.player": "%1$s was blown up by %2$s's frisbee",
+	"death.attack.flying_frisbees.frisbee5": "%1$s didn't catch %2$s's exploding frisbee :(",
+	"death.attack.flying_frisbees.frisbee5.item": "%1$s didn't catch %3$s from %2$s :(",
+	"death.attack.flying_frisbees.frisbee5.player": "%1$s didn't catch %2$s's exploding frisbee :(",
+	"death.attack.flying_frisbees.frisbee6": "%1$s realized that %2$s's frisbee was explosive",
+	"death.attack.flying_frisbees.frisbee6.item": "%1$s realized that %3$s was explosive with %2$s's help",
+	"death.attack.flying_frisbees.frisbee6.player": "%1$s realized that %2$s's frisbee was explosive"
 }

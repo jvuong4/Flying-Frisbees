@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ProjectileItem;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -15,7 +16,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
 
-public class Frisboomerang extends Frisbee{//} implements ProjectileItem {
+public class Frisboomerang extends Item implements ProjectileItem {
 	public Frisboomerang(Item.Settings settings) {
 		super(settings);
 	}
@@ -34,7 +35,7 @@ public class Frisboomerang extends Frisbee{//} implements ProjectileItem {
 			0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F)
 		);
 		if (world instanceof ServerWorld serverWorld) {
-			FrisbeeEntity frisbee = new FrisbeeEntity(world, user, itemStack);
+			FrisbeeEntity frisbee = new FrisbeeEntity(world, user, itemStack,true);
 			frisbee.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 0.8F, 1.0F);
 			frisbee.isLoyal = true;
 			world.spawnEntity(frisbee);
@@ -48,7 +49,7 @@ public class Frisboomerang extends Frisbee{//} implements ProjectileItem {
 
 	@Override
 	public ProjectileEntity createEntity(World world, Position pos, ItemStack stack, Direction direction) {
-		FrisbeeEntity frisbee = new FrisbeeEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+		FrisbeeEntity frisbee = new FrisbeeEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack,true);
 		return frisbee;
 	}
 }
