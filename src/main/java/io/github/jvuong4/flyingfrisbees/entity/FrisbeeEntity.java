@@ -78,8 +78,8 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		isSpinning = true;
 		onSetItemStack(getItemStack());
 		Item item = this.getItemStack().getItem();
-		isCapturing = (item instanceof YoinkFrisbee);
-		isExploding = (item instanceof Frisboom);
+		isCapturing = item instanceof YoinkFrisbee;
+		isExploding = item instanceof Frisboomerang;
 	}
 
 	public void constructFrisbee(boolean pickupable) {
@@ -137,13 +137,11 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 				//check if entity not already riding something
 				&& !this.hasPassengers()
 				//check if in whitelist or if it is a MobEntity or LivingEntity
-				&& (entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_WHITELIST) || entity instanceof PlayerEntity || entity.getType() == EntityType.PHANTOM)
+				&& (entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_WHITELIST) || entity instanceof MobEntity || entity instanceof PlayerEntity || entity.getType() == EntityType.PHANTOM)
 				//frisbee catch logic
 				&& (
 				//capturing frisbees ignore ground and height checks
 				isCapturing ||
-					//Modfest dispensed frisbee tweak
-					(isDispensed && !entity.isOnGround()) ||
 					entity.getType() == EntityType.PHANTOM ||
 					(!entity.isOnGround() && this.getY() - entity.getY() < 0.75 + (double) entity.getDimensions(this.getPose()).height() * 0.25)
 			)
@@ -156,7 +154,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 		//Catch Logic
 		//Loyal and Capture frisbees cannot be caught. Exploding frisbees can! scary...
-		if (!isCapturing && !isDispensed && facing && entity instanceof PlayerEntity living) {
+		if (!isCapturing && facing && entity instanceof PlayerEntity living) {
 			EquipmentSlot slot = entityHitResult.getPos().distanceTo(entity.getEyePos()) < 0.5 &&
 				living.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty() ? EquipmentSlot.MAINHAND
 				: living.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty() ? EquipmentSlot.OFFHAND
@@ -175,10 +173,20 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		Entity entity2 = this.getOwner();
 		World var7 = this.getWorld();
 		DamageSource damageSource; // = this.getDamageSources().trident(this, (Entity)(entity2 == null ? this : entity2));
+		int option = 1;
+		if(entity2 != null)
+		{
+			option += this.getRandom().nextBetween(1, 2);
+		}
+		if(isExploding)
+		{
+			option += 3;
+		}
+
 
 		this.dealtDamage = true;
 		ServerWorld serverWorld = (ServerWorld) var7;
-		switch (this.getRandom().nextBetween(1, 3) + (isExploding ? 3 : 0)) {
+		switch (option) {
 			case 1:
 				damageSource = var7.getDamageSources().create(FlyingFrisbeesDamageTypes.FRISBEE_KEY, this, (Entity) (entity2 == null ? this : entity2));
 				break;
@@ -218,7 +226,6 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 			var7 = this.getWorld();
 			if (var7 instanceof ServerWorld) {
-
 				EnchantmentHelper.onTargetDamaged(serverWorld, entity, damageSource, this.getWeaponStack(), (item) -> this.kill(serverWorld));
 			}
 
@@ -249,8 +256,24 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	private void explode(ServerWorld world, DamageSource source) {
 		float damage = this.getRandom().nextFloat() * 8.0F + 12F;
 		Entity shooter = this.getOwner();
+
 		if (shooter instanceof LivingEntity) {
-			shooter.damage(world, source, damage);
+			boolean recoil = false;
+			for (int i = 0; i < 2; ++i) {
+				Vec3d vec3d2 = new Vec3d(shooter.getX(), shooter.getBodyY(0.5 * (double) i), shooter.getZ());
+				HitResult hitResult = this.getWorld().raycast(new RaycastContext(this.getPos(), vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+				if (hitResult.getType() == HitResult.Type.MISS) {
+					recoil = true;
+					break;
+				}
+			}
+			if(recoil) {
+				if (shooter.damage(world, source, damage * (float) Math.sqrt((5.0 - (double) this.distanceTo(shooter)) / 5.0))) {
+					EnchantmentHelper.onTargetDamaged(world, shooter, source, this.getWeaponStack(), (item) -> this.kill(world));
+						this.knockback((LivingEntity)shooter, source);
+						this.onHit((LivingEntity)shooter);
+				}
+			}
 
 			//double d = 5.0; //this doesnt seem to be used...
 			this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE.value(), 1.0F, 1.0F);
@@ -286,7 +309,70 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 				if (bl) {
 					float g = damage * (float) Math.sqrt((5.0 - (double) this.distanceTo(livingEntity)) / 5.0);
-					livingEntity.damage(world, source, g);
+					if(livingEntity.damage(world, source, g))
+					{
+						if (livingEntity.getType() == EntityType.ENDERMAN) {
+							return;
+						}
+
+						EnchantmentHelper.onTargetDamaged(world, livingEntity, source, this.getWeaponStack(), (item) -> this.kill(world));
+						this.knockback(livingEntity, source);
+						this.onHit(livingEntity);
+
+					}
+				}
+			}
+		}
+		else //occurs if there is no owner, like when this is dispensed
+		{
+			shooter = this;
+			//shooter.damage(world, source, damage);
+
+			//double d = 5.0; //this doesnt seem to be used...
+			this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE.value(), 1.0F, 1.0F);
+			Vec3d vec3d = this.getPos();
+			//explosion particles !! :P
+			this.getWorld().createExplosion(this, null, null, vec3d.getX(), vec3d.getY(), vec3d.getZ(), 0F, false, World.ExplosionSourceType.TNT);
+
+			List<LivingEntity> list2 = this.getWorld().getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
+			Iterator var8 = list2.iterator();
+
+			while (true) {
+				LivingEntity livingEntity;
+				do {
+					do {
+						if (!var8.hasNext()) {
+							return;
+						}
+
+						livingEntity = (LivingEntity) var8.next();
+					} while (livingEntity == shooter);
+				} while (this.squaredDistanceTo(livingEntity) > 25.0);
+
+				boolean bl = false;
+
+				for (int i = 0; i < 2; ++i) {
+					Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
+					HitResult hitResult = this.getWorld().raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+					if (hitResult.getType() == HitResult.Type.MISS) {
+						bl = true;
+						break;
+					}
+				}
+
+				if (bl) {
+					float g = damage * (float) Math.sqrt((5.0 - (double) this.distanceTo(livingEntity)) / 5.0);
+					if(livingEntity.damage(world, source, g))
+					{
+						if (livingEntity.getType() == EntityType.ENDERMAN) {
+							return;
+						}
+
+						EnchantmentHelper.onTargetDamaged(world, livingEntity, source, this.getWeaponStack(), (item) -> this.kill(world));
+						this.knockback(livingEntity, source);
+						this.onHit(livingEntity);
+
+					}
 				}
 			}
 		}
@@ -349,7 +435,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 		controllers.add(
 			// Add our animation controller. Loyal Frisbees always spin
-			new AnimationController<>(1, state -> state.setAndContinue((this.isSpinning || this.isLoyal) ? SPINNING_ANIM : STOPPED_ANIM))
+			new AnimationController<>(1, state -> state.setAndContinue((this.isSpinning) ? SPINNING_ANIM : STOPPED_ANIM))
 		);
 	}
 

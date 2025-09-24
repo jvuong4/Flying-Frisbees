@@ -59,10 +59,16 @@ public class FlyingFrisbeesItems {
 
 	public static final Frisboomerang FRISBOOMERANG = registerFrisboomerang("loyal_frisbee", Frisboomerang::new);
 	public static final Frisboomerang YEEHAW_FRISBEE = registerFrisboomerang("lasso_frisbee", YeehawFrisbee::new);
-	public static final Frisbee YOINK_FRISBEE = registerFrisbee("capture_frisbee", YoinkFrisbee::new);
-	public static final Frisbee FRISBOOM = registerFrisbee("bomb_frisbee", Frisboom::new);
+
+	public static final Frisbee YOINK_FRISBEE = registerFrisbee("capture_frisbee", YoinkFrisbee::new,1);
+	public static final Frisbee FRISBOOM = registerFrisbee("bomb_frisbee", Frisboom::new,2);
 
 	private static Frisbee registerFrisbee(String name, Function<Item.Settings, Item> function)
+	{
+		return registerFrisbee(name,function,0);
+	}
+
+	private static Frisbee registerFrisbee(String name, Function<Item.Settings, Item> function, int specialEffect)
 	{
 		Item item = Registry.register(Registries.ITEM, FlyingFrisbees.id(name),
 			function.apply(new Item.Settings()
@@ -72,13 +78,10 @@ public class FlyingFrisbeesItems {
 				.registryKey(RegistryKey.of(RegistryKeys.ITEM, FlyingFrisbees.id(name)))));
 
 		allItems.add(item);
-		//TODO: make dispensed frisbees able to be picked up (have the frisbee entity call constructFrisbee())
-		//DispenserBlock.registerBehavior(item, new ProjectileDispenserBehavior(item));
-		//MODFEST TWEAK: Dispensers have unique frisbee behavior
 		DispenserBlock.registerBehavior(item, new ProjectileDispenserBehavior(item) {
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 				Direction direction = (Direction)pointer.state().get(DispenserBlock.FACING);
-				BlockPos blockPos = pointer.pos().offset(direction);
+				//BlockPos blockPos = pointer.pos().offset(direction);
 
 				ServerWorld serverWorld = pointer.world();
 
@@ -86,10 +89,19 @@ public class FlyingFrisbeesItems {
 					ProjectileItem.Settings projectileSettings = projectileItem.getProjectileSettings();
 
 					Position position = projectileSettings.positionFunction().getDispensePosition(pointer, direction);
-					FrisbeeEntity frisbee = (FrisbeeEntity)ProjectileEntity.spawnWithVelocity(projectileItem.createEntity(serverWorld, position, stack, direction), serverWorld, stack, (double)direction.getOffsetX(), (double)direction.getOffsetY(), (double)direction.getOffsetZ(), projectileSettings.power(), projectileSettings.uncertainty()*0.1f);
-					frisbee.isLoyal = false;
-					//frisbee.constructFrisbee(false);
-					frisbee.isDispensed = true;
+					FrisbeeEntity frisbee = (FrisbeeEntity)ProjectileEntity.spawnWithVelocity(projectileItem.createEntity(serverWorld, position, stack, direction), serverWorld, stack, (double)direction.getOffsetX(), (double)direction.getOffsetY(), (double)direction.getOffsetZ(), projectileSettings.power(), projectileSettings.uncertainty()*0.2f);
+					frisbee.constructFrisbee(true);
+					switch(specialEffect)
+					{
+						case 0:
+							break;
+						case 1: //capturing
+							frisbee.isCapturing = true;
+							break;
+						case 2: //explosive
+							frisbee.isExploding = true;
+							break;
+					}
 					stack.decrement(1);
 				}
 				return stack;

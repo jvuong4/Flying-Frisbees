@@ -139,8 +139,6 @@ public class FrisboomerangEntity extends PersistentProjectileEntity implements G
 				&& (
 				//capturing frisbees ignore ground and height checks
 				isCapturing ||
-					//Modfest dispensed frisbee tweak
-					(isDispensed && !entity.isOnGround()) ||
 					entity.getType() == EntityType.PHANTOM ||
 					(!entity.isOnGround() && this.getY() - entity.getY() < 0.75 + (double) entity.getDimensions(this.getPose()).height() * 0.25)
 			)

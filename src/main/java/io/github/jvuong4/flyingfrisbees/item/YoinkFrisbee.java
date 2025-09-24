@@ -37,7 +37,6 @@ public class YoinkFrisbee extends Frisbee{//} implements ProjectileItem {
 			FrisbeeEntity frisbee = new FrisbeeEntity(world, user, itemStack);
 			frisbee.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 0.8F, 1.0F);
 			frisbee.isCapturing = true;
-			frisbee.isLoyal = false;
 			world.spawnEntity(frisbee);
 		}
 
@@ -51,7 +50,6 @@ public class YoinkFrisbee extends Frisbee{//} implements ProjectileItem {
 	public ProjectileEntity createEntity(World world, Position pos, ItemStack stack, Direction direction) {
 		FrisbeeEntity frisbee = new FrisbeeEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack);
 		frisbee.isCapturing = true;
-		frisbee.isLoyal = false;
 		return frisbee;
 	}
 }

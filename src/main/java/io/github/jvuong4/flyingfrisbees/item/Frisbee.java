@@ -66,7 +66,6 @@ public class Frisbee extends Item implements ProjectileItem {
 	@Override
 	public ProjectileEntity createEntity(World world, Position pos, ItemStack stack, Direction direction) {
 		FrisbeeEntity frisbee = new FrisbeeEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack);
-		frisbee.isLoyal = false;
 		return frisbee;
 	}
 }
