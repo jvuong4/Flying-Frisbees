@@ -152,7 +152,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 				//check if entity not already riding something
 				&& !this.hasPassengers()
 				//check if in whitelist or if it is a MobEntity or LivingEntity
-				&& (entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_WHITELIST) || entity instanceof MobEntity || entity.getType() == EntityType.PHANTOM)
+				&& (entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_WHITELIST) || entity instanceof PlayerEntity || entity.getType() == EntityType.PHANTOM)
 				//frisbee catch logic
 				&& (
 				//capturing frisbees ignore ground and height checks
