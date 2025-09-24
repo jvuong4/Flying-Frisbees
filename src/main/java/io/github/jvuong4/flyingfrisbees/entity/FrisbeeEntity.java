@@ -53,10 +53,6 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	protected boolean isSpinning = true;
 	private int life;
 
-	public boolean isLoyal;
-	private int timeInGround;
-	private boolean isReturning = false;
-
 	public boolean isCapturing;
 	public boolean isExploding;
 
@@ -65,23 +61,16 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 	public FrisbeeEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
 		super(entityType, world);
-		Item item = this.getItemStack().getItem();
-		this.isLoyal = (item instanceof Frisboomerang);
-		//this.dataTracker.set(LOYALTY, (byte)0);
 		constructFrisbee(true);
 	}
 
 	public FrisbeeEntity(World world, LivingEntity owner, ItemStack stack) {
 		super(FlyingFrisbeesEntities.FRISBEE, owner, world, stack, (ItemStack) null);
-		Item item = this.getItemStack().getItem();
-		this.isLoyal = (item instanceof Frisboomerang);
 		constructFrisbee(true);
 	}
 
 	public FrisbeeEntity(World world, double x, double y, double z, ItemStack stack) {
 		super(FlyingFrisbeesEntities.FRISBEE, x, y, z, world, stack, stack);
-		Item item = this.getItemStack().getItem();
-		this.isLoyal = (item instanceof Frisboomerang);
 		constructFrisbee(true);
 	}
 
@@ -89,10 +78,8 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		isSpinning = true;
 		onSetItemStack(getItemStack());
 		Item item = this.getItemStack().getItem();
-
 		isCapturing = (item instanceof YoinkFrisbee);
 		isExploding = (item instanceof Frisboom);
-		timeInGround = 0;
 	}
 
 	public void constructFrisbee(boolean pickupable) {
@@ -147,8 +134,6 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 		if (//frisbee blacklist logic has greatest priority
 			!entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_BLACKLIST)
-				//loyal frisbees cannot catch entities while returning
-				&& (!this.isLoyal || (this.isLoyal && !isReturning))
 				//check if entity not already riding something
 				&& !this.hasPassengers()
 				//check if in whitelist or if it is a MobEntity or LivingEntity
@@ -171,7 +156,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 		//Catch Logic
 		//Loyal and Capture frisbees cannot be caught. Exploding frisbees can! scary...
-		if (!this.isLoyal && !isCapturing && !isDispensed && facing && entity instanceof PlayerEntity living) {
+		if (!isCapturing && !isDispensed && facing && entity instanceof PlayerEntity living) {
 			EquipmentSlot slot = entityHitResult.getPos().distanceTo(entity.getEyePos()) < 0.5 &&
 				living.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty() ? EquipmentSlot.MAINHAND
 				: living.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty() ? EquipmentSlot.OFFHAND
@@ -257,45 +242,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		if (this.isInGround()) {
 			if (isExploding)
 				explodeSelf();
-			if (!this.isLoyal)
-				isSpinning = false;
-			if (timeInGround++ > 4)
-				this.dealtDamage = true;
-		}
-
-		if (this.isLoyal) {
-			Entity entity = this.getOwner();
-			if (this.dealtDamage || this.isNoClip() && entity != null) {
-				//drop as item when owner is dead
-				if (!this.isOwnerAlive()) {
-					World var4 = this.getWorld();
-					if (var4 instanceof ServerWorld) {
-						ServerWorld serverWorld = (ServerWorld) var4;
-						if (this.pickupType == PickupPermission.ALLOWED) {
-							this.dropStack(serverWorld, this.asItemStack(), 0.1F);
-						}
-					}
-					this.discard();
-				} else {
-					//after returning to non-player entity
-					if (!(entity instanceof PlayerEntity) && this.getPos().distanceTo(entity.getEyePos()) < (double) entity.getWidth() + 1.0) {
-						this.discard();
-						return;
-					}
-
-					this.setNoClip(true);
-					Vec3d vec3d = entity.getEyePos().subtract(this.getPos());
-					//this.setPos(this.getX(), this.getY() + vec3d.y * 0.015 * (double)1, this.getZ());
-					this.setVelocity(this.getVelocity().multiply(0.95).add(vec3d.normalize().multiply(0.05)));
-					//if (!isReturning) {
-					//this.playSound(SoundEvents.ITEM_TRIDENT_RETURN, 10.0F, 1.0F);
-					//isReturning = true;
-					//isSpinning = true;
-					//}
-
-
-				}
-			}
+			isSpinning = false;
 		}
 	}
 
@@ -387,7 +334,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	protected void age() {
 		++this.life;
 		//frisbees will only last for 40 seconds before dropping as an item
-		if (this.life >= 800 && !this.isLoyal) {
+		if (this.life >= 800) {
 			World var21 = this.getWorld();
 			if (var21 instanceof ServerWorld) {
 				ServerWorld serverWorld3 = (ServerWorld) var21;
