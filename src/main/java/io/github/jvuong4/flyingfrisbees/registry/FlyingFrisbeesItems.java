@@ -2,10 +2,7 @@ package io.github.jvuong4.flyingfrisbees.registry;
 
 import com.google.common.collect.ImmutableList;
 import io.github.jvuong4.flyingfrisbees.FlyingFrisbees;
-import io.github.jvuong4.flyingfrisbees.item.Frisbee;
-import io.github.jvuong4.flyingfrisbees.item.Frisboomerang;
-import io.github.jvuong4.flyingfrisbees.item.YoinkFrisbee;
-import io.github.jvuong4.flyingfrisbees.item.Frisboom;
+import io.github.jvuong4.flyingfrisbees.item.*;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
@@ -61,8 +58,9 @@ public class FlyingFrisbeesItems {
 	public static final Frisbee DELTA_FRISBEE = registerFrisbee("delta_frisbee", Frisbee::new);
 
 	public static final Frisboomerang FRISBOOMERANG = registerFrisboomerang("loyal_frisbee", Frisboomerang::new);
-	public static final Frisbee YOINK_FRISBEE = registerFrisbee("capturing_frisbee", YoinkFrisbee::new);
-	public static final Frisbee FRISBOOM = registerFrisbee("explosive_frisbee", Frisboom::new);
+	public static final Frisboomerang YEEHAW_FRISBEE = registerFrisboomerang("lasso_frisbee", YeehawFrisbee::new);
+	public static final Frisbee YOINK_FRISBEE = registerFrisbee("capture_frisbee", YoinkFrisbee::new);
+	public static final Frisbee FRISBOOM = registerFrisbee("bomb_frisbee", Frisboom::new);
 
 	private static Frisbee registerFrisbee(String name, Function<Item.Settings, Item> function)
 	{

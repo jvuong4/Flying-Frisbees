@@ -71,21 +71,10 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		constructFrisbee(true);
 	}
 
-	public FrisbeeEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world, boolean loyal) {
-		super(entityType, world);
-		this.isLoyal = loyal;
-		constructFrisbee(true);
-	}
-
 	public FrisbeeEntity(World world, LivingEntity owner, ItemStack stack) {
 		super(FlyingFrisbeesEntities.FRISBEE, owner, world, stack, (ItemStack) null);
 		Item item = this.getItemStack().getItem();
 		this.isLoyal = (item instanceof Frisboomerang);
-		constructFrisbee(true);
-	}
-	public FrisbeeEntity(World world, LivingEntity owner, ItemStack stack, boolean loyal) {
-		super(FlyingFrisbeesEntities.FRISBEE, owner, world, stack, (ItemStack) null);
-		this.isLoyal = loyal;
 		constructFrisbee(true);
 	}
 
@@ -96,25 +85,11 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		constructFrisbee(true);
 	}
 
-	public FrisbeeEntity(World world, double x, double y, double z, ItemStack stack, boolean loyal) {
-		super(FlyingFrisbeesEntities.FRISBEE, x, y, z, world, stack, stack);
-		this.isLoyal = loyal;
-		constructFrisbee(true);
-	}
-
 	public void constructFrisbee() {
 		isSpinning = true;
 		onSetItemStack(getItemStack());
 		Item item = this.getItemStack().getItem();
-		//isLoyal = (item instanceof Frisboomerang);
-		if(this.isLoyal)
-		{
-			FlyingFrisbees.LOGGER.info("it's loyal!");
-		}
-		else
-		{
-			FlyingFrisbees.LOGGER.info("not loyal!");
-		}
+
 		isCapturing = (item instanceof YoinkFrisbee);
 		isExploding = (item instanceof Frisboom);
 		timeInGround = 0;
@@ -175,7 +150,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 				//loyal frisbees cannot catch entities while returning
 				&& (!this.isLoyal || (this.isLoyal && !isReturning))
 				//check if entity not already riding something
-				&& !entity.hasVehicle()
+				&& !this.hasPassengers()
 				//check if in whitelist or if it is a MobEntity or LivingEntity
 				&& (entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_WHITELIST) || entity instanceof MobEntity || entity.getType() == EntityType.PHANTOM)
 				//frisbee catch logic
@@ -244,8 +219,8 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 		if (isExploding) {
 			explode(serverWorld, damageSource);
-			//10% chance to detroy an exploding frisbee when it explodes :(
-			if (this.getRandom().nextFloat() < 0.1F) {
+			//60% chance to detroy an exploding frisbee when it explodes :(
+			if (this.getRandom().nextFloat() < 0.6F) {
 				this.discard();
 				return;
 			}
@@ -325,7 +300,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	}
 
 	private void explode(ServerWorld world, DamageSource source) {
-		float damage = this.getRandom().nextFloat() * 3.0F + 5.5F;
+		float damage = this.getRandom().nextFloat() * 8.0F + 12F;
 		Entity shooter = this.getOwner();
 		if (shooter instanceof LivingEntity) {
 			shooter.damage(world, source, damage);
@@ -333,6 +308,9 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 			//double d = 5.0; //this doesnt seem to be used...
 			this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE.value(), 1.0F, 1.0F);
 			Vec3d vec3d = this.getPos();
+			//explosion particles !! :P
+			this.getWorld().createExplosion(this, null, null, vec3d.getX(), vec3d.getY(), vec3d.getZ(), 0F, false, World.ExplosionSourceType.TNT);
+
 			List<LivingEntity> list2 = this.getWorld().getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
 			Iterator var8 = list2.iterator();
 
@@ -388,8 +366,8 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 					break;
 			}
 			explode(serverWorld3, damageSource);
-			//10% chance to destroy an exploding frisbee when it explodes :(
-			if (!(this.getRandom().nextFloat() < 0.1F)) {
+			//60% chance to destroy an exploding frisbee when it explodes :(
+			if (!(this.getRandom().nextFloat() < 0.6F)) {
 				this.dropStack(serverWorld3, this.asItemStack().copy(), 0.1F);
 			}
 		}

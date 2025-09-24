@@ -18,6 +18,9 @@
 	"item.flying_frisbees.pink_frisbee": "Pink Frisbee",
 	"item.flying_frisbees.delta_frisbee": "Blue Fox Frisbee",
 	"item.flying_frisbees.loyal_frisbee": "Loyal Frisbee",
+	"item.flying_frisbees.capture_frisbee": "Capture Frisbee",
+	"item.flying_frisbees.lasso_frisbee": "Lasso Frisbee",
+	"item.flying_frisbees.bomb_frisbee": "Bomb Frisbee",
 
 	"lore.flying_frisbees.frisbee": "Can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. Sometimes, all you want to do is go fetch.",
 	"lore.flying_frisbees.white_frisbee": "Can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A minimalist color for nice and simple doggies.",
@@ -38,10 +41,14 @@
 	"lore.flying_frisbees.pink_frisbee": "Can be thrown and caught in your Mainhand, Offhand, or Head if that space is free while you're facing it. You can also ride it if you're in the air and it hits your feet. Otherwise, a direct hit kind of hurts. A soft color for even softer doggies.",
 	"lore.flying_frisbees.delta_frisbee": "A Frisbee based on a certain fox programmer.",
 	"lore.flying_frisbees.loyal_frisbee": "A Frisbee that does its very best to return to its owner. Their loyalty renders them incapable of being caught.",
+	"lore.flying_frisbees.capture_frisbee": "This Frisbee catches other mobs, because who ever thought that *we* were supposed to catch Frisbees?",
+	"lore.flying_frisbees.lasso_frisbee": "A very powerful Frisbee that does its very best to return to its owner. Very effective at catching other mobs.",
+	"lore.flying_frisbees.bomb_frisbee": "A rather dangerous Frisbee. Do your best to catch it. Sometimes destroys itself upon exploding.",
 
 	"itemGroup.flying_frisbees": "Flying Frisbees",
 
 	"entity.flying_frisbees.frisbee": "Frisbee",
+	"entity.flying_frisbees.frisboomerang": "Frisbee",
 
 	"tag.item.fetchable": "Fetchable",
 	"tag.item.frisbee": "Frisbee",

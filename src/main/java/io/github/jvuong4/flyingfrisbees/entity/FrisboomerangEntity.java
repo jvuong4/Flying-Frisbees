@@ -71,7 +71,7 @@ public class FrisboomerangEntity extends PersistentProjectileEntity implements G
 
 	public void constructFrisbee() {
 		isSpinning = true;
-		//onSetItemStack(getItemStack());
+		onSetItemStack(getItemStack());
 		Item item = this.getItemStack().getItem();
 		isCapturing = false;
 		timeInGround = 0;
@@ -96,7 +96,8 @@ public class FrisboomerangEntity extends PersistentProjectileEntity implements G
 	}
 
 	private void onSetItemStack(ItemStack itemStack) {
-
+		var path = itemStack.getRegistryEntry().getKey().get().getValue().getPath();
+		this.setAttached(FlyingFrisbeesRegistry.FRISBEE_TEXTURE_ATTACHMENT, path);
 	}
 
 	/**
@@ -131,7 +132,7 @@ public class FrisboomerangEntity extends PersistentProjectileEntity implements G
 				//loyal frisbees cannot catch entities while returning
 				&& (!isReturning)
 				//check if entity not already riding something
-				&& !entity.hasVehicle()
+				&& !this.hasPassengers()
 				//check if in whitelist or if it is a MobEntity or LivingEntity
 				&& (entity.getType().isIn(FlyingFrisbees.Tags.FRISBEE_WHITELIST) || entity instanceof MobEntity || entity.getType() == EntityType.PHANTOM)
 				//frisbee catch logic

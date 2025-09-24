@@ -21,7 +21,7 @@ public class FrisboomerangEntityModel extends DefaultedEntityGeoModel<Frisboomer
 
 	@Override
 	public Identifier getTextureResource(GeoRenderState renderState) {
-		return Identifier.of(FlyingFrisbees.MOD_ID, "textures/entity/loyal_frisbee.png");
+		return FrisbeeEntityModel.frisbeeTextures.get(renderState.getGeckolibData(DataTickets.ITEM));
 	}
 
 	@Override
