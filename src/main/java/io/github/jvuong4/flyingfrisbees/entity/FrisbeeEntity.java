@@ -174,7 +174,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		World var7 = this.getWorld();
 		DamageSource damageSource; // = this.getDamageSources().trident(this, (Entity)(entity2 == null ? this : entity2));
 		int option = 1;
-		if(entity2 != null)
+		if(!(entity2 == null))
 		{
 			option += this.getRandom().nextBetween(1, 2);
 		}
@@ -258,6 +258,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		Entity shooter = this.getOwner();
 
 		if (shooter instanceof LivingEntity) {
+
 			boolean recoil = false;
 			for (int i = 0; i < 2; ++i) {
 				Vec3d vec3d2 = new Vec3d(shooter.getX(), shooter.getBodyY(0.5 * (double) i), shooter.getZ());
@@ -267,14 +268,14 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 					break;
 				}
 			}
-			if(recoil) {
+			if(recoil && this.squaredDistanceTo(shooter) <= 25.0) {
 				if (shooter.damage(world, source, damage * (float) Math.sqrt((5.0 - (double) this.distanceTo(shooter)) / 5.0))) {
 					EnchantmentHelper.onTargetDamaged(world, shooter, source, this.getWeaponStack(), (item) -> this.kill(world));
 						this.knockback((LivingEntity)shooter, source);
 						this.onHit((LivingEntity)shooter);
 				}
 			}
-
+			
 			//double d = 5.0; //this doesnt seem to be used...
 			this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE.value(), 1.0F, 1.0F);
 			Vec3d vec3d = this.getPos();
@@ -384,14 +385,14 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 			ServerWorld serverWorld3 = (ServerWorld) var21;
 			DamageSource damageSource;
 			Entity entity2 = this.getOwner();
-			switch (this.getRandom().nextBetween(1, 3) + (isExploding ? 3 : 0)) {
-				case 4:
+			switch ((entity2 != null) ? this.getRandom().nextBetween(2, 3) : 1) {
+				case 1:
 					damageSource = serverWorld3.getDamageSources().create(FlyingFrisbeesDamageTypes.FRISBEE4_KEY, this, (Entity) (entity2 == null ? this : entity2));
 					break;
-				case 5:
+				case 2:
 					damageSource = serverWorld3.getDamageSources().create(FlyingFrisbeesDamageTypes.FRISBEE5_KEY, this, (Entity) (entity2 == null ? this : entity2));
 					break;
-				case 6:
+				case 3:
 					damageSource = serverWorld3.getDamageSources().create(FlyingFrisbeesDamageTypes.FRISBEE6_KEY, this, (Entity) (entity2 == null ? this : entity2));
 					break;
 				default:
