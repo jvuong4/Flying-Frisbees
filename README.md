@@ -1,5 +1,6 @@
 <!--suppress HtmlDeprecatedTag, XmlDeprecatedElement -->
-<center><img alt="flying frisbees icon" src="https://github.com/jvuong4/Flying-Frisbees/blob/fabric-1.21.8/src/main/resources/assets/flying_frisbees/icon.png" width=200/></center>
+<center><img alt="flying frisbees icon" src="https://github.com/jvuong4/Flying-Frisbees/blob/fabric-1.21.8/src/main/resources/assets/flying_frisbees/icon.png" width = 32
+			/></center>
 
 <center>
 Frisbees that you can throw!
