@@ -1,7 +1,10 @@
 {
 	"replace": false,
 	"values": [
-		"losing_my_marbles:marble",
+		{
+			"id":"losing_my_marbles:marble",
+			"required": false
+		},
 		"minecraft:phantom"
 	]
 }
