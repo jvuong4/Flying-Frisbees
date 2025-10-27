@@ -53,9 +53,10 @@ public class FrisbeeEntityRenderer<R extends EntityRenderState & GeoRenderState>
 	public void addRenderData(
 		FrisbeeEntity frisbee,
 		Void ummm,
-		R renderState
+		R renderState,
+		float partialTick
 	) {
-		super.addRenderData(frisbee,ummm, renderState);
+		super.addRenderData(frisbee, ummm, renderState, partialTick);
 		renderState.addGeckolibData(
 			TEXTURE, frisbee.getAttached(FlyingFrisbeesRegistry.FRISBEE_TEXTURE_ATTACHMENT)
 		);

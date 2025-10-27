@@ -29,9 +29,10 @@ public class FrisboomerangEntityRenderer<R extends EntityRenderState & GeoRender
 	public void addRenderData(
 		FrisboomerangEntity frisbee,
 		Void ummm,
-		R renderState
+		R renderState,
+		float partialTick
 	) {
-		super.addRenderData(frisbee,ummm, renderState);
+		super.addRenderData(frisbee, ummm, renderState, partialTick);
 		renderState.addGeckolibData(
 			TEXTURE, frisbee.getAttached(FlyingFrisbeesRegistry.FRISBEE_TEXTURE_ATTACHMENT)
 		);
