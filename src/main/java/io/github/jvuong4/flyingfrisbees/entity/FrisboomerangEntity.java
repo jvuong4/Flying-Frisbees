@@ -120,7 +120,7 @@ public class FrisboomerangEntity extends PersistentProjectileEntity implements G
 	}
 
 	protected void onEntityHit(EntityHitResult entityHitResult) {
-		if (getWorld().isClient) return;
+		if (getEntityWorld().isClient()) return;
 
 		Entity entity = entityHitResult.getEntity();
 
@@ -153,7 +153,7 @@ public class FrisboomerangEntity extends PersistentProjectileEntity implements G
 		//this thing's weak as hell lmao
 		float f = 1.0F;
 		Entity entity2 = this.getOwner();
-		World var7 = this.getWorld();
+		World var7 = this.getEntityWorld();
 		DamageSource damageSource; // = this.getDamageSources().trident(this, (Entity)(entity2 == null ? this : entity2));
 
 		this.dealtDamage = true;
@@ -178,7 +178,7 @@ public class FrisboomerangEntity extends PersistentProjectileEntity implements G
 				return;
 			}
 
-			var7 = this.getWorld();
+			var7 = this.getEntityWorld();
 			if (var7 instanceof ServerWorld) {
 
 				EnchantmentHelper.onTargetDamaged(serverWorld, entity, damageSource, this.getWeaponStack(), (item) -> this.kill(serverWorld));
@@ -191,7 +191,7 @@ public class FrisboomerangEntity extends PersistentProjectileEntity implements G
 			}
 		}
 
-		this.deflect(ProjectileDeflection.SIMPLE, entity, this.getOwner(), false);
+		this.deflect(ProjectileDeflection.SIMPLE, entity, this.owner, false);
 		this.setVelocity(this.getVelocity().multiply(0.2, 0.8, 0.2));
 		this.playSound(SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, 1.0F, 1.0F);
 	}
@@ -209,7 +209,7 @@ public class FrisboomerangEntity extends PersistentProjectileEntity implements G
 			if (this.dealtDamage || this.isNoClip() && entity != null) {
 				//drop as item when owner is dead
 				if (!this.isOwnerAlive()) {
-					World var4 = this.getWorld();
+					World var4 = this.getEntityWorld();
 					if (var4 instanceof ServerWorld) {
 						ServerWorld serverWorld = (ServerWorld) var4;
 						if (this.pickupType == PickupPermission.ALLOWED) {
@@ -219,13 +219,13 @@ public class FrisboomerangEntity extends PersistentProjectileEntity implements G
 					this.discard();
 				} else {
 					//after returning to non-player entity
-					if (!(entity instanceof PlayerEntity) && this.getPos().distanceTo(entity.getEyePos()) < (double) entity.getWidth() + 1.0) {
+					if (!(entity instanceof PlayerEntity) && this.getEntityPos().distanceTo(entity.getEyePos()) < (double) entity.getWidth() + 1.0) {
 						this.discard();
 						return;
 					}
 
 					this.setNoClip(true);
-					Vec3d vec3d = entity.getEyePos().subtract(this.getPos());
+					Vec3d vec3d = entity.getEyePos().subtract(this.getEntityPos());
 					//this.setPos(this.getX(), this.getY() + vec3d.y * 0.015 * (double)1, this.getZ());
 					this.setVelocity(this.getVelocity().multiply(0.95).add(vec3d.normalize().multiply(0.05)));
 					//if (!isReturning) {

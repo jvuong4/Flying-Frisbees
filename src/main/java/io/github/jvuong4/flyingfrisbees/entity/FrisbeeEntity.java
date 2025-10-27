@@ -125,7 +125,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	}
 
 	protected void onEntityHit(EntityHitResult entityHitResult) {
-		if (getWorld().isClient) return;
+		if (getEntityWorld().isClient()) return;
 
 		Entity entity = entityHitResult.getEntity();
 
@@ -171,7 +171,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		//this thing's weak as hell lmao
 		float f = 1.0F;
 		Entity entity2 = this.getOwner();
-		World var7 = this.getWorld();
+		World var7 = this.getEntityWorld();
 		DamageSource damageSource; // = this.getDamageSources().trident(this, (Entity)(entity2 == null ? this : entity2));
 		int option = 1;
 		if(!(entity2 == null))
@@ -224,7 +224,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 				return;
 			}
 
-			var7 = this.getWorld();
+			var7 = this.getEntityWorld();
 			if (var7 instanceof ServerWorld) {
 				EnchantmentHelper.onTargetDamaged(serverWorld, entity, damageSource, this.getWeaponStack(), (item) -> this.kill(serverWorld));
 			}
@@ -236,7 +236,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 			}
 		}
 
-		this.deflect(ProjectileDeflection.SIMPLE, entity, this.getOwner(), false);
+		this.deflect(ProjectileDeflection.SIMPLE, entity, owner, false);
 		this.setVelocity(this.getVelocity().multiply(0.2, 0.8, 0.2));
 		this.playSound(SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, 1.0F, 1.0F);
 	}
@@ -262,7 +262,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 			boolean recoil = false;
 			for (int i = 0; i < 2; ++i) {
 				Vec3d vec3d2 = new Vec3d(shooter.getX(), shooter.getBodyY(0.5 * (double) i), shooter.getZ());
-				HitResult hitResult = this.getWorld().raycast(new RaycastContext(this.getPos(), vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+				HitResult hitResult = this.getEntityWorld().raycast(new RaycastContext(this.getEntityPos(), vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
 				if (hitResult.getType() == HitResult.Type.MISS) {
 					recoil = true;
 					break;
@@ -278,11 +278,11 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 			
 			//double d = 5.0; //this doesnt seem to be used...
 			this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE.value(), 1.0F, 1.0F);
-			Vec3d vec3d = this.getPos();
+			Vec3d vec3d = this.getEntityPos();
 			//explosion particles !! :P
-			this.getWorld().createExplosion(this, null, null, vec3d.getX(), vec3d.getY(), vec3d.getZ(), 0F, false, World.ExplosionSourceType.TNT);
+			this.getEntityWorld().createExplosion(this, null, null, vec3d.getX(), vec3d.getY(), vec3d.getZ(), 0F, false, World.ExplosionSourceType.TNT);
 
-			List<LivingEntity> list2 = this.getWorld().getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
+			List<LivingEntity> list2 = this.getEntityWorld().getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
 			Iterator var8 = list2.iterator();
 
 			while (true) {
@@ -301,7 +301,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 				for (int i = 0; i < 2; ++i) {
 					Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
-					HitResult hitResult = this.getWorld().raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+					HitResult hitResult = this.getEntityWorld().raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
 					if (hitResult.getType() == HitResult.Type.MISS) {
 						bl = true;
 						break;
@@ -331,11 +331,11 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 			//double d = 5.0; //this doesnt seem to be used...
 			this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE.value(), 1.0F, 1.0F);
-			Vec3d vec3d = this.getPos();
+			Vec3d vec3d = this.getEntityPos();
 			//explosion particles !! :P
-			this.getWorld().createExplosion(this, null, null, vec3d.getX(), vec3d.getY(), vec3d.getZ(), 0F, false, World.ExplosionSourceType.TNT);
+			this.getEntityWorld().createExplosion(this, null, null, vec3d.getX(), vec3d.getY(), vec3d.getZ(), 0F, false, World.ExplosionSourceType.TNT);
 
-			List<LivingEntity> list2 = this.getWorld().getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
+			List<LivingEntity> list2 = this.getEntityWorld().getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(5.0));
 			Iterator var8 = list2.iterator();
 
 			while (true) {
@@ -354,7 +354,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 
 				for (int i = 0; i < 2; ++i) {
 					Vec3d vec3d2 = new Vec3d(livingEntity.getX(), livingEntity.getBodyY(0.5 * (double) i), livingEntity.getZ());
-					HitResult hitResult = this.getWorld().raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+					HitResult hitResult = this.getEntityWorld().raycast(new RaycastContext(vec3d, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
 					if (hitResult.getType() == HitResult.Type.MISS) {
 						bl = true;
 						break;
@@ -380,7 +380,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 	}
 
 	private void explodeSelf() {
-		World var21 = this.getWorld();
+		World var21 = this.getEntityWorld();
 		if (var21 instanceof ServerWorld) {
 			ServerWorld serverWorld3 = (ServerWorld) var21;
 			DamageSource damageSource;
@@ -422,7 +422,7 @@ public class FrisbeeEntity extends PersistentProjectileEntity implements GeoEnti
 		++this.life;
 		//frisbees will only last for 40 seconds before dropping as an item
 		if (this.life >= 800) {
-			World var21 = this.getWorld();
+			World var21 = this.getEntityWorld();
 			if (var21 instanceof ServerWorld) {
 				ServerWorld serverWorld3 = (ServerWorld) var21;
 				this.dropStack(serverWorld3, this.asItemStack().copy(), 0.1F);

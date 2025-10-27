@@ -31,7 +31,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	@Inject(method = "interact", at = @At("TAIL"), cancellable = true)
 	public void interact(Entity entity, Hand hand, CallbackInfoReturnable<ActionResult> ci)
 	{
-		if (getWorld().isClient) return;
+		if (getEntityWorld().isClient()) return;
 		if (this.getStackInHand(hand) != ItemStack.EMPTY) return;
 
 
